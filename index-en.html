@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MoM — Meaning of Maintenance · An engineered control room for Facility Management</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<link rel="stylesheet" href="site.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  body { background: var(--paper); }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+  .nav {
+    position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+    z-index: 50; background: rgba(247,246,242,0.82);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--hairline); border-radius: 999px;
+    padding: 8px 8px 8px 22px;
+    display: flex; align-items: center; gap: 22px;
+  }
+  .nav__logo { font-family: var(--font-sans); font-weight: 700; font-size: 17px; letter-spacing: -0.02em; color: var(--fg-1); text-decoration: none; }
+  .nav__logo .o { color: var(--mom-teal); }
+  .nav__items { display: flex; gap: 22px; }
+  .nav__items a { font-family: var(--font-sans); font-size: 13px; font-weight: 500; color: var(--fg-2); text-decoration: none; transition: color var(--t-base) var(--ease); }
+  .nav__items a:hover { color: var(--mom-teal-deep); }
+  .nav__cta { margin-left: 6px; background: var(--fg-1); color: var(--paper); font-family: var(--font-sans); font-size: 13px; font-weight: 600; padding: 0 18px; height: 38px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; transition: background var(--t-base) var(--ease); }
+  .nav__cta:hover { background: var(--mom-teal-deep); }
+  .nav__lang { margin-left: 4px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; color: var(--fg-3); border-left: 1px solid var(--hairline); padding-left: 12px; }
+  .nav__lang a { color: var(--fg-3); text-decoration: none; padding: 0 4px; }
+  .nav__lang a.cur { color: var(--mom-teal); }
+
+  section { padding: 96px 0; }
+  section.bg-soft { background: var(--paper-soft); }
+  section.bg-dark { background: var(--ink-deep); color: var(--fg-on-dark); }
+  .eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mom-teal); margin: 0 0 18px; }
+  .section-head { max-width: 760px; }
+  .section-head h2 { font-family: var(--font-serif); font-weight: 400; font-size: 56px; letter-spacing: -0.01em; line-height: 1.1; color: var(--fg-1); margin: 0 0 22px; }
+  .bg-dark .section-head h2 { color: var(--fg-on-dark); }
+  .section-head p { font-family: var(--font-sans); font-size: 18px; line-height: 1.55; color: var(--fg-2); margin: 0; max-width: 60ch; }
+  .bg-dark .section-head p { color: var(--fg-on-dark-mute); }
+
+  .hero { padding: 168px 0 80px; }
+  .hero__eye { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; background: var(--mom-teal-soft); border: 1px solid rgba(16,160,152,0.20); border-radius: 999px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mom-teal-deep); margin-bottom: 28px; }
+  .hero__eye .dot { width: 6px; height: 6px; background: var(--mom-teal); border-radius: 999px; }
+  .hero h1 { font-family: var(--font-serif); font-weight: 400; font-size: 92px; line-height: 0.98; letter-spacing: -0.025em; color: var(--fg-1); margin: 0 0 32px; max-width: 16ch; }
+  .hero h1 em { color: var(--mom-teal); font-style: normal; }
+  .hero__sub { font-family: var(--font-sans); font-size: 21px; line-height: 1.5; color: var(--fg-2); max-width: 56ch; margin: 0 0 40px; }
+  .hero__cta { display: flex; gap: 12px; align-items: center; }
+  .btn-primary { background: var(--mom-teal); color: #fff; font-family: var(--font-sans); font-weight: 600; font-size: 15px; padding: 0 24px; height: 52px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; transition: background var(--t-base) var(--ease); }
+  .btn-primary:hover { background: var(--mom-teal-deep); }
+  .btn-ghost { background: transparent; color: var(--fg-1); font-family: var(--font-sans); font-weight: 600; font-size: 15px; padding: 0 22px; height: 52px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; border: 1px solid var(--hairline); transition: all var(--t-base) var(--ease); }
+  .btn-ghost:hover { border-color: var(--mom-teal); color: var(--mom-teal-deep); }
+  .hero__strip { margin-top: 80px; display: flex; justify-content: space-between; gap: 32px; padding: 32px 0; border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
+  .strip__item .lbl { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-3); margin-bottom: 8px; }
+  .strip__item .v { font-family: var(--font-serif); font-size: 28px; letter-spacing: -0.01em; color: var(--fg-1); }
+
+  .method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 64px; }
+  .phase { background: var(--paper); border: 1px solid var(--hairline); border-radius: 14px; padding: 36px 32px; display: flex; flex-direction: column; transition: border-color var(--t-base) var(--ease); }
+  .phase:hover { border-color: var(--mom-teal); }
+  .phase__n { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.16em; color: var(--mom-teal); margin-bottom: 28px; }
+  .phase h3 { font-family: var(--font-serif); font-weight: 400; font-size: 30px; letter-spacing: -0.01em; color: var(--fg-1); margin: 0 0 14px; line-height: 1.15; }
+  .phase p { font-family: var(--font-sans); font-size: 15px; line-height: 1.55; color: var(--fg-2); margin: 0 0 24px; }
+  .phase__meta { margin-top: auto; padding-top: 18px; border-top: 1px solid var(--hairline); display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-3); }
+  .phase__meta strong { color: var(--mom-teal); font-weight: 500; }
+
+  .verticals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--hairline); border: 1px solid var(--hairline); border-radius: 14px; overflow: hidden; margin-top: 64px; }
+  .vert { background: var(--paper); padding: 32px 28px; display: flex; flex-direction: column; transition: background var(--t-base) var(--ease); cursor: pointer; }
+  .vert:hover { background: var(--mom-teal-soft); }
+  .vert__n { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; color: var(--mom-teal); margin-bottom: 18px; }
+  .vert__ico { width: 36px; height: 36px; border-radius: 8px; background: var(--mom-teal-soft); display: flex; align-items: center; justify-content: center; color: var(--mom-teal-deep); margin-bottom: 18px; }
+  .vert__ico i { width: 18px; height: 18px; }
+  .vert h4 { font-family: var(--font-serif); font-weight: 400; font-size: 22px; letter-spacing: -0.01em; color: var(--fg-1); margin: 0 0 8px; line-height: 1.2; }
+  .vert p { font-family: var(--font-sans); font-size: 13px; line-height: 1.55; color: var(--fg-3); margin: 0; }
+
+  footer { background: var(--ink-deep); color: var(--fg-on-dark); padding: 64px 0 32px; }
+  .ft-top { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 48px; border-bottom: 1px solid var(--ink-line); }
+  .ft-logo { font-family: var(--font-sans); font-weight: 700; font-size: 24px; letter-spacing: -0.02em; color: var(--fg-on-dark); }
+  .ft-logo .o { color: var(--mom-teal); }
+  .ft-tag { font-family: var(--font-sans); font-size: 14px; line-height: 1.55; color: var(--fg-on-dark-mute); margin: 16px 0 0; max-width: 44ch; }
+  .ft-col h5 { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mom-teal); margin: 0 0 18px; }
+  .ft-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .ft-col a { font-family: var(--font-sans); font-size: 13px; color: var(--fg-on-dark); text-decoration: none; }
+  .ft-col a:hover { color: var(--mom-teal); }
+  .ft-bottom { display: flex; justify-content: space-between; margin-top: 28px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; color: var(--fg-on-dark-mute); }
+  .ft-bottom a { color: var(--fg-on-dark-mute); text-decoration: none; margin-left: 18px; }
+
+  /* RESPONSIVE-INJECTED */
+@media (max-width: 1024px) {
+  .hero h1 { font-size: 64px; }
+  .method-grid { grid-template-columns: 1fr !important; }
+  .verticals { grid-template-columns: 1fr 1fr !important; }
+  .ft-top { grid-template-columns: 1fr 1fr !important; }
+}
+@media (max-width: 768px) {
+  .hero { padding: 120px 0 48px; }
+  .hero h1 { font-size: 44px; }
+  .hero__sub { font-size: 17px; }
+  .hero__cta { flex-direction: column; align-items: stretch; }
+  .btn-primary, .btn-ghost { justify-content: center; }
+  .hero__strip { flex-direction: column; gap: 16px; padding: 20px 0; }
+  .verticals { grid-template-columns: 1fr !important; gap: 1px; }
+  .ft-top { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 36px; }
+  #offer table { font-size: 13px; }
+  #offer table th, #offer table td { padding: 14px 0 !important; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" data-screen-label="00 Nav (EN)">
+  <a href="index-en.html" class="nav__logo">M<span class="o">o</span>M</a>
+  <div class="nav__items">
+    <a href="#platform">Platform</a>
+    <a href="#offer">Offer</a>
+    <a href="mailto:info@aicom.it?subject=MoM%20%E2%80%94%20Richiesta%20di%20contatto">Contact</a>
+  </div>
+  <div class="nav__lang">
+    <a href="index.html">IT</a><span style="color: var(--hairline);">/</span><a class="cur">EN</a>
+  </div>
+  <a class="nav__cta" href="mailto:info@aicom.it?subject=MoM%20%E2%80%94%20Richiesta%20di%20contatto">Request assessment <span style="font-family: var(--font-mono);">→</span></a>
+</nav>
+
+<section class="hero" data-screen-label="01 Hero (EN)">
+  <div class="wrap">
+    <div class="hero__eye"><span class="dot"></span>MoM · Owned by AICOM, an engineering firm</div>
+    <h1>An <em>engineered control room</em> for Facility Management.</h1>
+    <p class="hero__sub">MoM brings together your data, drawings, plants, maintenance plans and KPIs in a single command room — custom-built on your operations, run with our team.</p>
+    <div class="hero__cta">
+      <a class="btn-primary" href="mailto:info@aicom.it?subject=MoM%20%E2%80%94%20Richiesta%20di%20contatto">Request an assessment <span style="font-family: var(--font-mono);">→</span></a>
+      <a class="btn-ghost" href="#method">Read the method</a>
+    </div>
+    <div class="hero__strip">
+      <div class="strip__item"><div class="lbl">Phase 01</div><div class="v">Facility Diagnostic</div></div>
+      <div class="strip__item"><div class="lbl">Phase 02</div><div class="v">Design &amp; Roadmap</div></div>
+      <div class="strip__item"><div class="lbl">Phase 03</div><div class="v">Implementation</div></div>
+      <div class="strip__item"><div class="lbl">Lingua</div><div class="v" style="font-family: var(--font-mono); font-size: 16px;">IT · EN</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="method" class="bg-soft" data-screen-label="02 Method (EN)">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The method · three phases</div>
+      <h2>An assessment first. Then a roadmap. Then a control room.</h2>
+      <p>We don't sell software. We sell an engineered method backed by a platform — so you keep ownership of the journey, and we keep responsibility for the result.</p>
+    </div>
+    <div class="method-grid">
+      <article class="phase">
+        <div class="phase__n">PHASE 01</div>
+        <h3>Facility Diagnostic Report</h3>
+        <p>A 4-week independent audit. We score your FM maturity across six dimensions and hand back a paper report with twelve prioritised actions. Decide whether to continue at the end of the phase — no pressure.</p>
+        <div class="phase__meta"><span>~ 4 WEEKS</span><strong>INDEPENDENT</strong></div>
+      </article>
+      <article class="phase">
+        <div class="phase__n">PHASE 02</div>
+        <h3>Design &amp; Roadmap</h3>
+        <p>Six weeks to design the architecture of your control room: setup plan, vertical configuration, 12-month rollout calendar, acceptance KPIs. You approve the roadmap before any implementation begins.</p>
+        <div class="phase__meta"><span>~ 6 WEEKS</span><strong>APPROVAL GATE</strong></div>
+      </article>
+      <article class="phase">
+        <div class="phase__n">PHASE 03</div>
+        <h3>Implementation &amp; Roll-Out</h3>
+        <p>Setup of CDE, BIM-FM, CMMS, IoT, EMS and the KPI dashboard. Configuration tailored to your asset register. Field teams trained. Progressive go-live across sites.</p>
+        <div class="phase__meta"><span>~ 22 WEEKS</span><strong>GO-LIVE</strong></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="platform" data-screen-label="03 Platform (EN)">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The platform · six verticals</div>
+      <h2>One control room. Six verticals. Yours.</h2>
+      <p>Built on standards, integrated with the systems you already use. We don't move your data — we put it where you can govern it.</p>
+    </div>
+    <div class="verticals">
+      <article class="vert"><div class="vert__n">01</div><div class="vert__ico"><i data-lucide="folder-tree"></i></div><h4>Document Repository (CDE)</h4><p>Single ISO 19650 archive: structure, versioning, approvals, traceability. The end of file shares and email attachments.</p></article>
+      <article class="vert"><div class="vert__n">02</div><div class="vert__ico"><i data-lucide="box"></i></div><h4>BIM-FM</h4><p>Navigable 3D model of your assets, with COBie metadata. Click an asset, find every document and work order attached to it.</p></article>
+      <article class="vert"><div class="vert__n">03</div><div class="vert__ico"><i data-lucide="wrench"></i></div><h4>CMMS</h4><p>Maintenance plans, work orders, teams, vendors, SLAs. Unified register replacing the spreadsheets and legacy CMMS islands.</p></article>
+      <article class="vert"><div class="vert__n">04</div><div class="vert__ico"><i data-lucide="activity"></i></div><h4>IoT &amp; Predictive</h4><p>Your existing sensors fed into ML models. Dynamic thresholds replace fixed alarm thresholds. Anomalies become work orders.</p></article>
+      <article class="vert"><div class="vert__n">05</div><div class="vert__ico"><i data-lucide="zap"></i></div><h4>Energy Management (EMS)</h4><p>consolidated baseline, hourly granularity, sub-meter rollout. Real attribution of consumption — not just an aggregate bill.</p></article>
+      <article class="vert"><div class="vert__n">06</div><div class="vert__ico"><i data-lucide="gauge"></i></div><h4>KPI Dashboard</h4><p>UNI 15341 indicators on a single screen. Monthly KPI report auto-compiled. The view the Direction actually opens.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="offer" class="bg-dark" data-screen-label="04 Offer (EN)">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Commercial architecture</div>
+      <h2>Six items. Transparent. Separate.</h2>
+      <p>Each item has its own scope, deliverable and timeline. You don't sign one all-inclusive subscription — you sign six modular agreements you can activate independently.</p>
+    </div>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 56px; font-family: var(--font-sans);">
+      <thead><tr>
+        <th style="text-align: left; padding: 16px 0; border-bottom: 1px solid var(--ink-line); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-on-dark-mute); font-weight: 500; width: 60px;">Cod</th>
+        <th style="text-align: left; padding: 16px 0; border-bottom: 1px solid var(--ink-line); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-on-dark-mute); font-weight: 500;">Item</th>
+        <th style="text-align: left; padding: 16px 0; border-bottom: 1px solid var(--ink-line); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-on-dark-mute); font-weight: 500;">Mode</th>
+        <th style="text-align: left; padding: 16px 0; border-bottom: 1px solid var(--ink-line); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-on-dark-mute); font-weight: 500;">Cancel</th>
+      </tr></thead>
+      <tbody style="font-size: 15px; color: var(--fg-on-dark);">
+        <tr><td style="padding: 22px 0; border-bottom: 1px solid var(--ink-line); font-family: var(--font-mono); color: var(--mom-teal);">01</td><td style="padding: 22px 0; border-bottom: 1px solid var(--ink-line);"><strong>Facility Diagnostic Report</strong> · independent audit + paper deliverable</td><td style="padding: 22px 0; border-bottom: 1px solid var(--ink-line); color: var(--fg-on-dark-mute);">One-off</td><td style="padding: 22px 0; border-bottom: 1px solid var(--ink-line); color: var(--fg-on-dark-mute);">N/A</td></tr>
+        <tr><td style="padding: 22px 0; border-bottom: 1px solid var(--ink-line); font-family: var(--font-mono); color: var(--mom-teal);">02</td><td style="padding: 22px 0; border-bottom: 1px solid var(--ink-line);"><strong>Platform setup</strong> · CDE, BIM-FM, CMMS, IoT, EMS, KPI</td><td style="padding: 22px 0; border-bottom: 1px solid var(--ink-line); color: var(--fg-on-dark-mute);">One-off</td><td style="padding: 22px 0; border-bottom: 1px solid var(--ink-line); color: var(--fg-on-dark-mute);">N/A</td></tr>
+        <tr><td style="padding: 22px 0; border-bottom: 1px solid var(--ink-line); font-family: var(--font-mono); color: var(--mom-teal);">03</td><td style="padding: 22px 0; border-bottom: 1px solid var(--ink-line);"><strong>Control room subscription</strong> · licences, hosting, 2nd-level support</td><td style="padding: 22px 0; border-bottom: 1px solid var(--ink-line); color: var(--fg-on-dark-mute);">Monthly</td><td style="padding: 22px 0; border-bottom: 1px solid var(--ink-line); color: var(--mom-teal);">90 days notice</td></tr>
+        <tr><td style="padding: 22px 0; border-bottom: 1px solid var(--ink-line); font-family: var(--font-mono); color: var(--mom-teal);">04</td><td style="padding: 22px 0; border-bottom: 1px solid var(--ink-line);"><strong>Evolutive hours</strong> · custom development on request</td><td style="padding: 22px 0; border-bottom: 1px solid var(--ink-line); color: var(--fg-on-dark-mute);">Pay-as-you-go</td><td style="padding: 22px 0; border-bottom: 1px solid var(--ink-line); color: var(--fg-on-dark-mute);">Anytime</td></tr>
+        <tr><td style="padding: 22px 0; border-bottom: 1px solid var(--ink-line); font-family: var(--font-mono); color: var(--mom-teal);">05</td><td style="padding: 22px 0; border-bottom: 1px solid var(--ink-line);"><strong>Advisory packages</strong> · recurring governance · monthly reviews</td><td style="padding: 22px 0; border-bottom: 1px solid var(--ink-line); color: var(--fg-on-dark-mute);">Monthly</td><td style="padding: 22px 0; border-bottom: 1px solid var(--ink-line); color: var(--mom-teal);">90 days notice</td></tr>
+        <tr><td style="padding: 22px 0; font-family: var(--font-mono); color: var(--mom-teal);">06</td><td style="padding: 22px 0;"><strong>Ancillary services</strong> · training, audits, one-off activities</td><td style="padding: 22px 0; color: var(--fg-on-dark-mute);">Per quote</td><td style="padding: 22px 0; color: var(--fg-on-dark-mute);">Per agreement</td></tr>
+      </tbody>
+    </table>
+    <p style="font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em; color: var(--fg-on-dark-mute); margin-top: 24px;">Each item is invoiced separately on its own line. No item is hidden inside another.</p>
+  </div>
+</section>
+
+<section id="contact" data-screen-label="05 CTA (EN)" style="padding: 120px 0;">
+  <div class="wrap" style="text-align: center;">
+    <div class="eyebrow">Next step</div>
+    <h2 style="font-family: var(--font-serif); font-weight: 400; font-size: 72px; letter-spacing: -0.02em; line-height: 1.05; color: var(--fg-1); max-width: 18ch; margin: 0 auto 32px;">Start with an <em style="color: var(--mom-teal); font-style: normal;">objective baseline</em>.</h2>
+    <p style="font-family: var(--font-sans); font-size: 19px; line-height: 1.55; color: var(--fg-2); max-width: 56ch; margin: 0 auto 40px;">A 45-minute first call. No slide deck. No automated email sequence. We come back within two working days with three suggested time slots.</p>
+    <div style="display: flex; gap: 12px; justify-content: center;">
+      <a class="btn-primary" href="#">Request an assessment <span style="font-family: var(--font-mono);">→</span></a>
+      <a class="btn-ghost" href="#">Download the Diagnostic brief</a>
+    </div>
+  </div>
+</section>
+
+<footer data-screen-label="99 Footer (EN)">
+  <div class="wrap">
+    <div class="ft-top">
+      <div>
+        <div class="ft-logo">M<span class="o">o</span>M</div>
+        <p class="ft-tag">Meaning of Maintenance. An engineered control room for Facility Management governance.</p>
+        <div style="margin-top: 18px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-on-dark-mute);">A Roma-based engineering firm · MoM S.r.l. · VAT 18451811006</div>
+      </div>
+      <div class="ft-col"><h5>Platform</h5><ul><li><a href="#platform">Repository (CDE)</a></li><li><a href="#platform">BIM-FM</a></li><li><a href="#platform">CMMS</a></li><li><a href="#platform">IoT &amp; predictive</a></li><li><a href="#platform">EMS</a></li><li><a href="#platform">KPI dashboard</a></li></ul></div>
+      <div class="ft-col"><h5>Company</h5><ul><li><a href="#">About</a></li><li><a href="#offer">Advisory packages</a></li><li><a href="mailto:info@aicom.it?subject=MoM%20%E2%80%94%20Richiesta%20di%20contatto">Contact</a></li></ul></div>
+    </div>
+    <div class="ft-bottom">
+      <div>© 2026 MoM S.r.l. — società del gruppo di ingegneria AICOM · VAT 18451811006</div>
+      <div><a href="#">Privacy</a><a href="#">Cookie</a><a href="#">Legal</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>lucide.createIcons();</script>
+<script src="site.js"></script>
+</body>
+</html>

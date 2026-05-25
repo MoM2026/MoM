@@ -1,0 +1,272 @@
+/* =====================================================================
+   MoM (Meaning of Maintenance) — Design Tokens
+   Brand: MoM S.r.l. · owned by AICOM, engineering firm
+   ===================================================================== */
+
+/* Fonts — Google substitutes (real brand fonts TBD)
+   - Manrope: matches the geometric, rounded sans of the MoM wordmark/tagline.
+   - Newsreader: editorial serif for headlines that carry an engineering-magazine voice.
+   - JetBrains Mono: data, KPIs, code blocks, asset IDs, technical labels.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ---------- BRAND ---------- */
+  --mom-teal:           #10A098;   /* signature accent — used scarcely */
+  --mom-teal-deep:      #0B7F78;   /* pressed/active */
+  --mom-teal-soft:      #D5EFEC;   /* tinted surface (badges, hover wash) */
+  --mom-ink:            #202018;   /* primary text & wordmark dark */
+
+  /* ---------- NEUTRALS (warm) ----------
+     The canvas is paper-white, not pure white — keeps the engineering-document feel. */
+  --paper:              #F7F6F2;   /* default page surface */
+  --paper-soft:         #EFEDE6;   /* alternate band / soft section */
+  --paper-strong:       #E5E1D6;   /* card on band, emphasized */
+  --hairline:           #D9D5C9;   /* 1px borders on paper */
+  --hairline-soft:      #E9E5D9;   /* barely-visible dividers within a band */
+
+  /* Dark surfaces — control-room mode */
+  --ink-deep:           #14140F;   /* page-floor dark, e.g. footer / hero dark */
+  --ink-elevated:       #1E1E18;   /* dark card surface */
+  --ink-soft:           #29291F;   /* secondary dark surface */
+  --ink-line:           #353528;   /* hairline on dark */
+
+  /* Text scale */
+  --fg-1:               #202018;   /* primary */
+  --fg-2:               #3A3A30;   /* body emphasized */
+  --fg-3:               #5A5A4F;   /* default body */
+  --fg-4:               #807A6B;   /* muted */
+  --fg-5:               #A39C8A;   /* fine print */
+  --fg-on-dark:         #F4F1E8;   /* cream-white on dark */
+  --fg-on-dark-mute:    #A09A86;   /* secondary on dark */
+  --fg-on-teal:         #FFFFFF;
+
+  /* Semantic */
+  --status-ok:          #4A9F6E;   /* success / online */
+  --status-warn:        #D4A017;   /* warning / threshold */
+  --status-err:         #C4543A;   /* error / fault — warm tone, not pure red */
+  --status-info:        var(--mom-teal);
+
+  /* ---------- TYPOGRAPHY ---------- */
+  --font-sans:    'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
+  --font-serif:   'Newsreader', 'Iowan Old Style', 'Charter', 'Georgia', serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  --fz-display-xl:   80px;   /* hero h1 */
+  --fz-display-lg:   56px;   /* section heads */
+  --fz-display-md:   40px;   /* subsection */
+  --fz-display-sm:   28px;   /* card heading, big stat */
+  --fz-title-lg:     22px;   /* large title */
+  --fz-title-md:     18px;   /* card title */
+  --fz-title-sm:     16px;   /* tile / list label */
+  --fz-body-lg:      18px;   /* lead paragraph */
+  --fz-body-md:      16px;   /* default body */
+  --fz-body-sm:      14px;   /* secondary body / footer */
+  --fz-caption:      13px;
+  --fz-caption-up:   12px;   /* uppercase tag, eyebrow */
+  --fz-code:         14px;
+  --fz-mono-data:    13px;   /* tabular KPI/data */
+  --fz-button:       14px;
+
+  --lh-tight:        1.05;
+  --lh-display:      1.1;
+  --lh-heading:      1.25;
+  --lh-body:         1.55;
+  --lh-mono:         1.45;
+
+  --tracking-display: -0.02em;   /* display sans tightens slightly */
+  --tracking-serif:   -0.01em;
+  --tracking-up:      0.14em;    /* eyebrows / uppercase labels */
+  --tracking-mono:    0.02em;
+
+  /* ---------- SPACING (4px base) ---------- */
+  --sp-1:   4px;
+  --sp-2:   8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  24px;
+  --sp-7:  32px;
+  --sp-8:  40px;
+  --sp-9:  48px;
+  --sp-10: 64px;
+  --sp-11: 80px;
+  --sp-12: 96px;    /* default section rhythm */
+  --sp-13: 128px;   /* hero / signature band */
+
+  /* ---------- RADII ---------- */
+  --r-xs:    2px;   /* badges-on-data */
+  --r-sm:    4px;   /* inputs, small buttons */
+  --r-md:    6px;   /* buttons, tiles */
+  --r-lg:    10px;  /* cards */
+  --r-xl:   16px;   /* hero card / large surfaces */
+  --r-pill: 999px;
+  --r-full: 9999px;
+
+  /* ---------- BORDERS & SHADOWS ---------- */
+  --border-1:   1px solid var(--hairline);
+  --border-1-dark: 1px solid var(--ink-line);
+  --border-strong: 1.5px solid var(--ink);
+
+  --shadow-soft:    0 1px 2px rgba(32, 32, 24, 0.04), 0 2px 8px rgba(32, 32, 24, 0.04);
+  --shadow-lift:    0 2px 4px rgba(32, 32, 24, 0.05), 0 12px 32px rgba(32, 32, 24, 0.08);
+  --shadow-focus:   0 0 0 3px rgba(16, 160, 152, 0.20);
+
+  /* ---------- LAYOUT ---------- */
+  --container-max: 1200px;
+  --container-narrow: 880px;
+  --container-wide: 1320px;
+
+  /* ---------- TIMING ----------
+     The brand is calm and considered — animations are short and linear-ish, never bouncy. */
+  --t-fast:   120ms;
+  --t-base:   180ms;
+  --t-slow:   320ms;
+  --ease:     cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =====================================================================
+   Base reset (lightweight)
+   ===================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--paper);
+  color: var(--fg-1);
+  font-family: var(--font-sans);
+  font-size: var(--fz-body-md);
+  line-height: var(--lh-body);
+  font-feature-settings: "ss01", "ss02", "kern";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* =====================================================================
+   Semantic type — drop these classes anywhere
+   ===================================================================== */
+
+/* DISPLAY — serif, editorial weight 400/500, tight tracking */
+.t-display-xl,
+.t-display-lg,
+.t-display-md,
+.t-display-sm {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: var(--tracking-serif);
+  color: var(--fg-1);
+  margin: 0;
+}
+.t-display-xl { font-size: var(--fz-display-xl); line-height: var(--lh-tight); }
+.t-display-lg { font-size: var(--fz-display-lg); line-height: var(--lh-display); }
+.t-display-md { font-size: var(--fz-display-md); line-height: var(--lh-heading); }
+.t-display-sm { font-size: var(--fz-display-sm); line-height: var(--lh-heading); }
+
+/* Alternative display: sans for utilitarian/dashboard contexts */
+.t-display-sans {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: var(--tracking-display);
+}
+
+/* TITLES — sans 500 */
+.t-title-lg,
+.t-title-md,
+.t-title-sm {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--fg-1);
+  margin: 0;
+}
+.t-title-lg { font-size: var(--fz-title-lg); line-height: var(--lh-heading); }
+.t-title-md { font-size: var(--fz-title-md); line-height: var(--lh-heading); }
+.t-title-sm { font-size: var(--fz-title-sm); line-height: var(--lh-heading); }
+
+/* BODY — sans 400 */
+.t-body-lg, .t-body-md, .t-body-sm {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  color: var(--fg-3);
+  margin: 0;
+}
+.t-body-lg { font-size: var(--fz-body-lg); line-height: var(--lh-body); color: var(--fg-2); }
+.t-body-md { font-size: var(--fz-body-md); line-height: var(--lh-body); }
+.t-body-sm { font-size: var(--fz-body-sm); line-height: var(--lh-body); color: var(--fg-4); }
+
+/* CAPTION & EYEBROW */
+.t-caption {
+  font-family: var(--font-sans);
+  font-size: var(--fz-caption);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--fg-4);
+}
+.t-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fz-caption-up);
+  font-weight: 500;
+  letter-spacing: var(--tracking-up);
+  text-transform: uppercase;
+  color: var(--fg-4);
+  margin: 0;
+}
+.t-eyebrow--teal { color: var(--mom-teal); }
+.t-eyebrow--on-dark { color: var(--fg-on-dark-mute); }
+
+/* MONO — data, KPIs, IDs */
+.t-mono,
+.t-data {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum", "zero";
+  letter-spacing: var(--tracking-mono);
+}
+.t-data {
+  font-size: var(--fz-mono-data);
+  color: var(--fg-2);
+}
+.t-data--big {
+  font-size: var(--fz-display-md);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--fg-1);
+}
+
+/* Inline accents */
+.t-accent { color: var(--mom-teal); }
+.t-strong { color: var(--fg-1); font-weight: 600; }
+.t-muted  { color: var(--fg-4); }
+
+/* On-dark surfaces */
+.on-dark .t-display-xl,
+.on-dark .t-display-lg,
+.on-dark .t-display-md,
+.on-dark .t-display-sm,
+.on-dark .t-title-lg,
+.on-dark .t-title-md,
+.on-dark .t-title-sm,
+.on-dark .t-body-lg,
+.on-dark .t-data--big { color: var(--fg-on-dark); }
+.on-dark .t-body-md,
+.on-dark .t-body-sm,
+.on-dark .t-caption,
+.on-dark .t-data { color: var(--fg-on-dark-mute); }
+.on-dark { color: var(--fg-on-dark); }
+
+/* =====================================================================
+   Utility primitives
+   ===================================================================== */
+.container { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--sp-6); }
+.container--narrow { max-width: var(--container-narrow); }
+.container--wide   { max-width: var(--container-wide); }
+
+.surface-paper       { background: var(--paper); }
+.surface-paper-soft  { background: var(--paper-soft); }
+.surface-paper-strong{ background: var(--paper-strong); }
+.surface-dark        { background: var(--ink-deep); color: var(--fg-on-dark); }
+.surface-dark-elev   { background: var(--ink-elevated); color: var(--fg-on-dark); }
+.surface-teal        { background: var(--mom-teal); color: var(--fg-on-teal); }
+
+.hairline-t { border-top: var(--border-1); }
+.hairline-b { border-bottom: var(--border-1); }
+.hairline-r { border-right: var(--border-1); }
+.hairline-l { border-left: var(--border-1); }

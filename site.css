@@ -1,0 +1,328 @@
+/* =====================================================================
+   MoM marketing site — shared styles
+   Imported by every marketing-site page (index, verticale-*, advisory, contatti).
+   ===================================================================== */
+
+body { background: var(--paper); }
+
+/* ---------- Layout ---------- */
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+.wrap--wide   { max-width: 1320px; }
+.wrap--narrow { max-width: 880px; }
+
+/* ---------- Nav (top floating pill) ---------- */
+.nav {
+  position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+  z-index: 50;
+  background: rgba(247,246,242,0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 8px 8px 8px 22px;
+  display: flex; align-items: center; gap: 22px;
+}
+.nav__logo {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+  color: var(--fg-1);
+  display: flex; align-items: baseline;
+  text-decoration: none;
+}
+.nav__logo .o { color: var(--mom-teal); }
+.nav__items { display: flex; gap: 22px; }
+.nav__items a {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg-2);
+  text-decoration: none;
+  transition: color var(--t-base) var(--ease);
+}
+.nav__items a:hover,
+.nav__items a.is-current { color: var(--mom-teal-deep); }
+.nav__cta {
+  margin-left: 6px;
+  background: var(--fg-1); color: var(--paper);
+  font-family: var(--font-sans); font-size: 13px; font-weight: 600;
+  padding: 0 18px; height: 38px; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 6px;
+  border: none; cursor: pointer; text-decoration: none;
+  white-space: nowrap;
+  transition: background var(--t-base) var(--ease);
+}
+.nav__cta:hover { background: var(--mom-teal-deep); }
+
+/* ---------- Section rhythm ---------- */
+section { padding: 96px 0; }
+section.section--tight { padding: 64px 0; }
+section.bg-soft { background: var(--paper-soft); }
+section.bg-strong { background: var(--paper-strong); }
+section.bg-dark { background: var(--ink-deep); color: var(--fg-on-dark); }
+section.bg-teal { background: var(--mom-teal); color: #fff; }
+
+.eyebrow {
+  font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--mom-teal);
+  margin: 0 0 18px;
+}
+.bg-dark .eyebrow { color: var(--mom-teal); }
+
+.section-head { max-width: 760px; }
+.section-head h2 {
+  font-family: var(--font-serif); font-weight: 400;
+  font-size: 56px; letter-spacing: -0.01em; line-height: 1.1;
+  color: var(--fg-1); margin: 0 0 22px;
+}
+.bg-dark .section-head h2 { color: var(--fg-on-dark); }
+.section-head p {
+  font-family: var(--font-sans); font-size: 18px; line-height: 1.55;
+  color: var(--fg-2); margin: 0;
+  max-width: 60ch;
+}
+.bg-dark .section-head p { color: var(--fg-on-dark-mute); }
+
+/* ---------- Page header (interior pages) ---------- */
+.page-head { padding: 168px 0 64px; border-bottom: 1px solid var(--hairline); }
+.page-head__crumbs {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--fg-4); margin-bottom: 28px;
+  display: flex; gap: 8px; align-items: center;
+}
+.page-head__crumbs a { color: var(--fg-4); text-decoration: none; }
+.page-head__crumbs a:hover { color: var(--mom-teal-deep); }
+.page-head__crumbs .sep { color: var(--hairline); }
+.page-head__crumbs .cur { color: var(--mom-teal); }
+.page-head h1 {
+  font-family: var(--font-serif); font-weight: 400;
+  font-size: 72px; line-height: 1.05; letter-spacing: -0.02em;
+  color: var(--fg-1); margin: 0 0 24px;
+  max-width: 18ch;
+}
+.page-head h1 em { color: var(--mom-teal); font-style: normal; }
+.page-head__lead {
+  font-family: var(--font-sans); font-size: 19px; line-height: 1.55;
+  color: var(--fg-2); max-width: 60ch; margin: 0;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  font-family: var(--font-sans); font-size: 14px; font-weight: 600;
+  padding: 0 22px; height: 48px; border-radius: 6px;
+  border: 1px solid transparent;
+  background: var(--fg-1); color: var(--paper);
+  cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+  transition: background var(--t-base) var(--ease), color var(--t-base) var(--ease);
+  text-decoration: none; white-space: nowrap;
+}
+.btn:hover { background: var(--mom-teal-deep); }
+.btn--teal { background: var(--mom-teal); }
+.btn--teal:hover { background: var(--mom-teal-deep); }
+.btn--secondary { background: transparent; color: var(--fg-1); border-color: var(--fg-1); }
+.btn--secondary:hover { background: var(--fg-1); color: var(--paper); }
+.btn--ondark { background: var(--paper); color: var(--ink-deep); }
+.btn--ondark:hover { background: var(--mom-teal); color: #fff; }
+.btn .arr { display: inline-block; transition: transform var(--t-base) var(--ease); }
+.btn:hover .arr { transform: translateX(3px); }
+.btn--small { height: 40px; font-size: 13px; padding: 0 16px; }
+
+/* ---------- Tags ---------- */
+.tag {
+  display: inline-flex; padding: 3px 8px; border-radius: 4px;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em;
+  border: 1px solid var(--hairline); color: var(--fg-4);
+  background: transparent;
+}
+.tag--teal { color: var(--mom-teal); border-color: var(--mom-teal); }
+
+/* ---------- Status pills (inside dark surfaces) ---------- */
+.pill-mini {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 2px 8px; border-radius: 999px;
+  font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+.pill-mini .d { width: 4px; height: 4px; border-radius: 999px; }
+.pm-ok   { background: rgba(74,159,110,0.12);  color: #6EBA8C; }
+.pm-ok .d   { background: #4A9F6E; }
+.pm-warn { background: rgba(212,160,23,0.14); color: #E1B954; }
+.pm-warn .d { background: #D4A017; }
+.pm-err  { background: rgba(196,84,58,0.14);  color: #DE8068; }
+.pm-err .d  { background: #C4543A; }
+.pm-info { background: rgba(16,160,152,0.14); color: #2BC3B8; }
+.pm-info .d { background: #10A098; }
+
+/* ---------- Footer ---------- */
+footer { background: var(--ink-deep); color: var(--fg-on-dark); padding: 80px 0 32px; }
+.ft-grid {
+  display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 56px;
+  padding-bottom: 56px; border-bottom: 1px solid var(--ink-line);
+}
+.ft-logo { font-family: var(--font-sans); font-weight: 700; font-size: 32px; letter-spacing: -0.02em; color: var(--fg-on-dark); margin-bottom: 16px; }
+.ft-logo .o { color: var(--mom-teal); }
+.ft-tag { font-family: var(--font-sans); font-size: 14px; line-height: 1.6; color: var(--fg-on-dark-mute); max-width: 32ch; margin: 0 0 24px; }
+.ft-aicom { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-on-dark-mute); }
+.ft-aicom .div { color: var(--ink-line); margin: 0 8px; }
+.ft-col h5 { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-on-dark-mute); margin: 0 0 18px; }
+.ft-col ul { list-style: none; margin: 0; padding: 0; }
+.ft-col li { margin-bottom: 12px; }
+.ft-col a { font-family: var(--font-sans); font-size: 14px; color: var(--fg-on-dark); text-decoration: none; transition: color var(--t-base) var(--ease); }
+.ft-col a:hover { color: var(--mom-teal); }
+.ft-bottom {
+  display: flex; justify-content: space-between; padding-top: 32px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; color: var(--fg-on-dark-mute);
+}
+.ft-bottom .right { display: flex; gap: 24px; }
+.ft-bottom a { color: var(--fg-on-dark-mute); text-decoration: none; }
+.ft-bottom a:hover { color: var(--mom-teal); }
+
+
+/* =====================================================================
+   Mobile responsive — covers nav, hero, footer, generic section heads
+   ===================================================================== */
+
+@media (max-width: 1024px) {
+  .wrap { padding: 0 24px; }
+  .section-head h2 { font-size: 44px; }
+  .ft-grid { grid-template-columns: 1.4fr 1fr 1fr !important; gap: 36px; }
+}
+
+@media (max-width: 768px) {
+  /* Nav becomes compact */
+  .nav {
+    left: 12px; right: 12px; transform: none;
+    padding: 8px 8px 8px 16px;
+    gap: 10px;
+    width: auto;
+  }
+  .nav__items { display: none; }
+  .nav__logo { font-size: 16px; }
+  .nav__cta {
+    margin-left: auto;
+    padding: 0 14px; height: 34px; font-size: 12px;
+  }
+  .nav__cta .arr { display: none; }
+
+  /* Section rhythm */
+  section { padding: 64px 0 !important; }
+  section.section--tight { padding: 48px 0 !important; }
+
+  .section-head h2 { font-size: 32px; line-height: 1.12; }
+  .section-head p { font-size: 16px; }
+
+  /* Page head (interior pages) */
+  .page-head { padding: 120px 0 48px; }
+  .page-head h1 { font-size: 38px; line-height: 1.1; max-width: 100%; }
+  .page-head__lead { font-size: 16px; }
+
+  /* Buttons */
+  .btn { height: 44px; padding: 0 18px; font-size: 13px; }
+
+  /* Footer */
+  .ft-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px;
+    padding-bottom: 36px;
+  }
+  .ft-bottom { flex-direction: column; gap: 12px; align-items: flex-start; }
+  .ft-bottom .right { gap: 16px; }
+
+  /* Language switcher on mobile: stack inline next to logo */
+  .nav__lang { font-size: 10px; padding-left: 8px; }
+}
+
+@media (max-width: 480px) {
+  .wrap { padding: 0 18px; }
+  .section-head h2 { font-size: 28px; }
+  .page-head h1 { font-size: 32px; }
+}
+
+
+/* =====================================================================
+   Mobile navigation menu (hamburger + dropdown panel)
+   Toggle button and panel are injected by site.js; the markup in each
+   page is left untouched. On wide screens these are hidden.
+   ===================================================================== */
+.nav__toggle { display: none; }
+.nav__panel  { display: none; }
+
+@media (max-width: 768px) {
+  /* The inline links + language switch live in the dropdown panel; the pill
+     keeps only logo · CTA · hamburger so it always fits a phone width. */
+  .nav__items { display: none; }
+  .nav__lang  { display: none; }
+
+  .nav__toggle {
+    display: inline-flex; flex-direction: column; justify-content: center;
+    gap: 4px; width: 40px; height: 34px; padding: 0 10px; flex: none;
+    background: transparent; border: 1px solid var(--hairline);
+    border-radius: 999px; cursor: pointer;
+    transition: border-color var(--t-base) var(--ease);
+  }
+  .nav__toggle:hover { border-color: var(--mom-teal); }
+  .nav__toggle span {
+    display: block; width: 100%; height: 1.5px; background: var(--fg-1);
+    transition: transform var(--t-base) var(--ease), opacity var(--t-base) var(--ease);
+  }
+  .nav--open .nav__toggle span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .nav--open .nav__toggle span:nth-child(2) { opacity: 0; }
+  .nav--open .nav__toggle span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+  .nav__panel {
+    position: absolute; top: calc(100% + 10px); left: 0; right: 0;
+    flex-direction: column; gap: 2px; padding: 10px;
+    background: rgba(247, 246, 242, 0.97);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--hairline); border-radius: 16px;
+    box-shadow: var(--shadow-lift);
+  }
+  .nav--open .nav__panel { display: flex; }
+  .nav__panel a {
+    font-family: var(--font-sans); font-size: 15px; font-weight: 500;
+    color: var(--fg-1); text-decoration: none;
+    padding: 12px 16px; border-radius: 10px;
+    transition: background var(--t-base) var(--ease), color var(--t-base) var(--ease);
+  }
+  .nav__panel a:hover,
+  .nav__panel a.is-current { background: var(--paper-soft); color: var(--mom-teal-deep); }
+
+  .nav__panel-lang {
+    display: flex; gap: 6px; align-items: center;
+    margin-top: 6px; padding-top: 10px;
+    border-top: 1px solid var(--hairline);
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em;
+  }
+  .nav__panel-lang a {
+    padding: 8px 14px; border-radius: 8px; text-decoration: none; color: var(--fg-3);
+    transition: background var(--t-base) var(--ease), color var(--t-base) var(--ease);
+  }
+  .nav__panel-lang a:hover { background: var(--paper-soft); }
+  .nav__panel-lang a.cur { color: var(--mom-teal); }
+}
+
+
+/* =====================================================================
+   Scroll reveal — subtle opacity fade + 8px rise as blocks enter view.
+   Stays within the brand's animation budget (short, linear, no parallax).
+   The hidden state only applies when site.js has added .reveal-on to
+   <html>, so the page is fully visible if JS is off or the user prefers
+   reduced motion.
+   ===================================================================== */
+html.reveal-on .reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--t-slow) var(--ease), transform var(--t-slow) var(--ease);
+  will-change: opacity, transform;
+}
+html.reveal-on .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.reveal-on .reveal { opacity: 1; transform: none; transition: none; }
+}

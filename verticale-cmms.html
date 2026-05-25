@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CMMS · MoM — Gestione manutenzioni ingegnerizzata</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<link rel="stylesheet" href="site.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  /* Verticale page — local styles */
+
+  /* Hero variant */
+  .vhero { padding: 168px 0 96px; }
+  .vhero__grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 72px; align-items: end; }
+  .vhero__crumbs {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--fg-4); margin-bottom: 28px;
+    display: flex; gap: 8px; align-items: center;
+  }
+  .vhero__crumbs a { color: var(--fg-4); text-decoration: none; }
+  .vhero__crumbs a:hover { color: var(--mom-teal-deep); }
+  .vhero__crumbs .sep { color: var(--hairline); }
+  .vhero__crumbs .cur { color: var(--mom-teal); }
+  .vhero__vert {
+    font-family: var(--font-mono); font-size: 13px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--mom-teal); margin-bottom: 18px;
+  }
+  .vhero h1 {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: 76px; line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--fg-1); margin: 0 0 28px;
+    max-width: 14ch;
+  }
+  .vhero h1 em { color: var(--mom-teal); font-style: normal; }
+  .vhero__lead {
+    font-family: var(--font-sans); font-size: 19px; line-height: 1.55;
+    color: var(--fg-2); margin: 0 0 36px;
+    max-width: 50ch;
+  }
+  .vhero__chips { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px; }
+
+  /* Hero artifact: WO board mock */
+  .wo-mock {
+    background: var(--ink-deep);
+    border-radius: 14px;
+    border: 1px solid var(--ink-line);
+    padding: 18px;
+    color: var(--fg-on-dark);
+    font-family: var(--font-mono);
+  }
+  .wo-mock__head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 4px 14px; border-bottom: 1px solid var(--ink-line);
+    margin-bottom: 14px;
+  }
+  .wo-mock__title { font-family: var(--font-sans); font-size: 13px; font-weight: 600; color: var(--fg-on-dark); }
+  .wo-mock__meta { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-on-dark-mute); }
+  .wo-mock__cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .wo-col {
+    background: var(--ink-elevated); border: 1px solid var(--ink-line);
+    border-radius: 6px; padding: 12px;
+  }
+  .wo-col__title {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--fg-on-dark-mute); margin-bottom: 10px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--ink-line);
+  }
+  .wo-col__count { color: var(--mom-teal); font-feature-settings: "tnum"; }
+  .wo-card {
+    background: var(--ink-deep);
+    border: 1px solid var(--ink-line);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 8px;
+  }
+  .wo-card:last-child { margin-bottom: 0; }
+  .wo-card__id { font-size: 9px; color: var(--mom-teal); letter-spacing: 0.06em; margin-bottom: 6px; }
+  .wo-card__name { font-family: var(--font-sans); font-size: 12px; color: var(--fg-on-dark); margin-bottom: 6px; line-height: 1.3; }
+  .wo-card__foot { display: flex; justify-content: space-between; align-items: center; font-size: 9px; color: var(--fg-on-dark-mute); }
+  .wo-card .pill-mini { font-size: 8px; padding: 1px 6px; }
+
+  /* Stats strip */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+    padding: 28px 0;
+    margin-bottom: 0;
+  }
+  .stat { padding: 0 24px; border-left: 1px solid var(--hairline-soft); }
+  .stat:first-child { border-left: none; padding-left: 0; }
+  .stat__v {
+    font-family: var(--font-mono); font-size: 36px;
+    color: var(--fg-1); font-feature-settings: "tnum";
+    letter-spacing: -0.01em; margin-bottom: 8px; line-height: 1;
+  }
+  .stat__v em { color: var(--mom-teal); font-style: normal; font-size: 24px; margin-left: 2px; }
+  .stat__l {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--fg-4); line-height: 1.4;
+  }
+
+  /* Features grid (3 cols) */
+  .feat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-top: 64px; }
+  .feat {
+    border: 1px solid var(--hairline);
+    border-radius: 10px;
+    padding: 32px;
+    background: var(--paper);
+    display: flex; flex-direction: column;
+  }
+  .feat__icon {
+    width: 36px; height: 36px;
+    color: var(--mom-teal);
+    margin-bottom: 28px;
+    padding: 6px;
+    border: 1px solid var(--hairline);
+    border-radius: 6px;
+  }
+  .feat__num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; color: var(--fg-4); margin-bottom: 10px; }
+  .feat h3 {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: 22px; line-height: 1.25; letter-spacing: -0.01em;
+    color: var(--fg-1); margin: 0 0 12px;
+  }
+  .feat p {
+    font-family: var(--font-sans); font-size: 14px; line-height: 1.6;
+    color: var(--fg-3); margin: 0;
+  }
+
+  /* Architecture diagram (split: text + schematic) */
+  .arch-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; margin-top: 56px; align-items: start; }
+  .arch-list { list-style: none; padding: 0; margin: 24px 0 0; }
+  .arch-list li {
+    display: flex; gap: 14px; padding: 14px 0;
+    border-top: 1px solid var(--hairline-soft);
+    font-family: var(--font-sans); font-size: 15px; color: var(--fg-2);
+    line-height: 1.5;
+  }
+  .arch-list li:first-child { border-top: none; }
+  .arch-list i { width: 18px; height: 18px; color: var(--mom-teal); flex-shrink: 0; margin-top: 3px; }
+
+  .arch-schematic {
+    background: var(--paper);
+    border: 1px solid var(--hairline);
+    border-radius: 12px;
+    padding: 32px;
+    aspect-ratio: 4 / 3;
+  }
+  .arch-schematic svg { width: 100%; height: 100%; }
+  .arch-schematic text {
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    fill: var(--fg-4);
+  }
+  .arch-schematic .box-title {
+    font-family: var(--font-sans); font-size: 12px;
+    font-weight: 600; letter-spacing: -0.005em;
+    fill: var(--fg-1); text-transform: none;
+  }
+  .arch-schematic .box-teal-title { fill: var(--mom-teal); }
+
+  /* Compatibility table */
+  .compat {
+    border: 1px solid var(--hairline);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 56px;
+    background: var(--paper);
+  }
+  .compat-head {
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 16px; padding: 14px 28px;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--fg-4);
+    background: var(--paper-strong);
+  }
+  .compat-row {
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 16px; padding: 20px 28px;
+    border-top: 1px solid var(--hairline);
+    align-items: center;
+  }
+  .compat-row__vendor {
+    font-family: var(--font-sans); font-size: 15px; font-weight: 600;
+    color: var(--fg-1);
+  }
+  .compat-row__vendor .role {
+    display: block; font-family: var(--font-mono); font-size: 10px; font-weight: 400;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--fg-4); margin-top: 4px;
+  }
+  .compat-row__role,
+  .compat-row__std,
+  .compat-row__status {
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--fg-3);
+  }
+  .compat-row__status .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px; border-radius: 999px;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    background: rgba(16,160,152,0.10); color: var(--mom-teal-deep);
+  }
+  .compat-row__status .pill .d { width: 5px; height: 5px; border-radius: 999px; background: var(--mom-teal); }
+
+  /* Output / what you ship */
+  .deliv-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 56px; }
+  .deliv {
+    border: 1px solid var(--ink-line);
+    background: var(--ink-elevated);
+    border-radius: 10px;
+    padding: 24px;
+    color: var(--fg-on-dark);
+  }
+  .deliv__num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; color: var(--mom-teal); margin-bottom: 16px; }
+  .deliv h4 { font-family: var(--font-serif); font-weight: 400; font-size: 19px; letter-spacing: -0.01em; color: var(--fg-on-dark); margin: 0 0 10px; line-height: 1.25; }
+  .deliv p { font-family: var(--font-sans); font-size: 13px; line-height: 1.55; color: var(--fg-on-dark-mute); margin: 0; }
+
+  /* Related verticali (pre-footer) */
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 48px; }
+  .related {
+    border: 1px solid var(--hairline);
+    border-radius: 10px;
+    padding: 28px;
+    background: var(--paper);
+    text-decoration: none;
+    transition: transform var(--t-base) var(--ease), border-color var(--t-base) var(--ease);
+    display: flex; flex-direction: column;
+    min-height: 180px;
+  }
+  .related:hover { transform: translateY(-3px); border-color: var(--mom-teal); }
+  .related__num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; color: var(--fg-4); margin-bottom: 14px; }
+  .related h4 { font-family: var(--font-serif); font-weight: 400; font-size: 22px; letter-spacing: -0.01em; color: var(--fg-1); margin: 0 0 12px; line-height: 1.2; }
+  .related p { font-family: var(--font-sans); font-size: 13px; line-height: 1.5; color: var(--fg-3); margin: 0 0 18px; }
+  .related__arr { font-family: var(--font-mono); font-size: 11px; color: var(--mom-teal); margin-top: auto; }
+
+  /* CTA */
+  .cta-band { padding: 96px 0; }
+  .cta-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 56px; align-items: center; }
+  .cta-band h2 {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: 52px; line-height: 1.08; letter-spacing: -0.01em;
+    color: #fff; margin: 0 0 16px;
+    max-width: 18ch;
+  }
+  .cta-band p {
+    font-family: var(--font-sans); font-size: 17px; line-height: 1.55;
+    color: rgba(255,255,255,0.86); margin: 0;
+    max-width: 40ch;
+  }
+  .cta-band__actions { display: flex; gap: 12px; flex-direction: column; }
+
+  /* RESPONSIVE-INJECTED */
+@media (max-width: 1024px) {
+  .vhero h1 { font-size: 56px; }
+  .vhero__grid { grid-template-columns: 1fr !important; gap: 40px; }
+  .stats { grid-template-columns: 1fr 1fr !important; }
+  .feat-grid, .deliv-grid, .related-grid { grid-template-columns: 1fr 1fr !important; }
+  .arch-grid { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 768px) {
+  .vhero { padding: 120px 0 48px; }
+  .vhero h1 { font-size: 40px; }
+  .vhero__lead { font-size: 16px; }
+  .stats { grid-template-columns: 1fr !important; padding: 18px 0; }
+  .stat { padding: 14px 0; border-left: none !important; border-top: 1px solid var(--hairline-soft); }
+  .stat:first-child { border-top: none; }
+  .feat-grid, .deliv-grid, .related-grid { grid-template-columns: 1fr !important; }
+  .wo-mock__cols { grid-template-columns: 1fr !important; }
+  .compat-head, .compat-row { grid-template-columns: 1fr !important; gap: 8px !important; padding: 14px 20px !important; }
+  .compat-head { display: none; }
+  .cta-grid { grid-template-columns: 1fr !important; gap: 24px; }
+  .cta-band h2 { font-size: 32px; }
+  .cta-band__actions { flex-direction: column; align-items: stretch; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ Nav ============ -->
+<nav class="nav" data-screen-label="00 Navigation">
+  <a href="index.html" class="nav__logo">M<span class="o">o</span>M</a>
+  <div class="nav__items">
+    <a href="index.html#piattaforma" class="is-current">Piattaforma</a>
+    <a href="offerta.html">Offerta</a>
+  </div>
+  <div class="nav__lang" style="margin-left: 4px; padding-left: 12px; border-left: 1px solid var(--hairline); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;">
+    <a href="index.html" class="cur" style="color: var(--mom-teal); text-decoration: none; padding: 0 4px;">IT</a><span style="color: var(--hairline);">/</span><a href="index-en.html" style="color: var(--fg-3); text-decoration: none; padding: 0 4px;">EN</a>
+  </div>
+  
+  <a class="nav__cta" href="mailto:info@aicom.it?subject=MoM%20%E2%80%94%20Richiesta%20di%20contatto">Richiedi un contatto <span class="arr">→</span></a>
+</nav>
+
+<!-- ============ Hero ============ -->
+<section class="vhero" data-screen-label="01 Hero CMMS">
+  <div class="wrap">
+    <div class="vhero__grid">
+      <div>
+        <div class="vhero__crumbs">
+          <a href="index.html">MoM</a>
+          <span class="sep">/</span>
+          <a href="index.html#piattaforma">Piattaforma</a>
+          <span class="sep">/</span>
+          <span class="cur">Verticale 03 · CMMS</span>
+        </div>
+        <div class="vhero__vert">03 · Computerized Maintenance Management System</div>
+        <h1>Pianificare la manutenzione <em>prima</em> che diventi un incendio.</h1>
+        <p class="vhero__lead">Il CMMS di MoM mette ordine fra preventiva, correttiva, predittiva, personale interno e contratti di servizio — su un unico registro asset e con SLA tracciabili. Non un tool a sé, ma uno dei sei verticali della cabina di regia.</p>
+        <div class="vhero__chips">
+          <span class="tag">SLA contrattuali</span>
+        </div>
+      </div>
+
+      <!-- Hero artifact: kanban-style WO board -->
+      <div class="wo-mock">
+        <div class="wo-mock__head">
+          <div class="wo-mock__title">Lavori · Sito pilota · Settimana 47</div>
+          <div class="wo-mock__meta">42 WO &nbsp; ● LIVE</div>
+        </div>
+        <div class="wo-mock__cols">
+          <div class="wo-col">
+            <div class="wo-col__title"><span>Da pianificare</span><span class="wo-col__count">14</span></div>
+            <div class="wo-card">
+              <div class="wo-card__id">WO-1142</div>
+              <div class="wo-card__name">Sostituzione filtri UTA-04</div>
+              <div class="wo-card__foot"><span>PRV · Q4</span><span class="pill-mini pm-warn"><span class="d"></span>SLA 7d</span></div>
+            </div>
+            <div class="wo-card">
+              <div class="wo-card__id">WO-1145</div>
+              <div class="wo-card__name">Verifica taratura PT-12</div>
+              <div class="wo-card__foot"><span>PRD · ML</span><span class="pill-mini pm-info"><span class="d"></span>NUOVO</span></div>
+            </div>
+            <div class="wo-card">
+              <div class="wo-card__id">WO-1148</div>
+              <div class="wo-card__name">Ispezione visiva quadro QE-3</div>
+              <div class="wo-card__foot"><span>PRV · M</span><span class="pill-mini pm-info"><span class="d"></span>SLA 14d</span></div>
+            </div>
+          </div>
+          <div class="wo-col">
+            <div class="wo-col__title"><span>In corso</span><span class="wo-col__count">11</span></div>
+            <div class="wo-card">
+              <div class="wo-card__id">WO-1138</div>
+              <div class="wo-card__name">Sostituzione girante pompa P-07</div>
+              <div class="wo-card__foot"><span>COR · MIRA</span><span class="pill-mini pm-warn"><span class="d"></span>SLA 2d</span></div>
+            </div>
+            <div class="wo-card">
+              <div class="wo-card__id">WO-1140</div>
+              <div class="wo-card__name">Pulizia scambiatore SC-02</div>
+              <div class="wo-card__foot"><span>PRV · INT</span><span class="pill-mini pm-ok"><span class="d"></span>IN ORARIO</span></div>
+            </div>
+          </div>
+          <div class="wo-col">
+            <div class="wo-col__title"><span>Chiusi · 7d</span><span class="wo-col__count">17</span></div>
+            <div class="wo-card">
+              <div class="wo-card__id">WO-1131</div>
+              <div class="wo-card__name">Riavvio chiller CH-01</div>
+              <div class="wo-card__foot"><span>COR · INT</span><span class="pill-mini pm-ok"><span class="d"></span>3h MTTR</span></div>
+            </div>
+            <div class="wo-card">
+              <div class="wo-card__id">WO-1129</div>
+              <div class="wo-card__name">Sostituzione lampade reparto B</div>
+              <div class="wo-card__foot"><span>PRV · MIRA</span><span class="pill-mini pm-ok"><span class="d"></span>CHIUSO</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Stats strip ============ -->
+<section class="section--tight" data-screen-label="02 Stats">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat">
+        <div class="stat__v">−24<em>%</em></div>
+        <div class="stat__l">Tempo medio<br>di compilazione WO</div>
+      </div>
+      <div class="stat">
+        <div class="stat__v">+38<em>%</em></div>
+        <div class="stat__l">SLA rispettati<br>nel primo anno</div>
+      </div>
+      <div class="stat">
+        <div class="stat__v">100<em>%</em></div>
+        <div class="stat__l">Asset con scheda<br>tecnica digitale</div>
+      </div>
+      <div class="stat">
+        <div class="stat__v">3</div>
+        <div class="stat__l">Cluster di asset<br>(critico · standard · spot)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Cosa fa (3 column features) ============ -->
+<section class="bg-soft" data-screen-label="03 Cosa fa">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Cosa fa il CMMS · in pratica</div>
+      <h2>Tre flussi di manutenzione. Un solo registro asset.</h2>
+      <p>Il CMMS non è un foglio di lavori. È il sistema operativo della manutenzione: tipologia, criticità asset, contratto di servizio e SLA si parlano sullo stesso piano informativo.</p>
+    </div>
+
+    <div class="feat-grid">
+      <article class="feat">
+        <i data-lucide="calendar-check" class="feat__icon"></i>
+        <div class="feat__num">01</div>
+        <h3>Manutenzione preventiva</h3>
+        <p>Piani per asset critico, frequenze normate (UNI 10147), gestione check-list, generazione automatica delle work order ricorrenti. Tracciabilità di chi ha fatto cosa e quando.</p>
+      </article>
+      <article class="feat">
+        <i data-lucide="alert-triangle" class="feat__icon"></i>
+        <div class="feat__num">02</div>
+        <h3>Manutenzione correttiva</h3>
+        <p>Apertura WO da segnalazione, sensore o ronda. Routing al fornitore o al manutentore interno secondo perimetro contrattuale. MTTR misurato per cluster di asset.</p>
+      </article>
+      <article class="feat">
+        <i data-lucide="activity" class="feat__icon"></i>
+        <div class="feat__num">03</div>
+        <h3>Manutenzione predittiva</h3>
+        <p>Integrazione con il verticale IoT: l'anomaly detection apre WO prima del guasto. Soglie configurate per asset, validate dal manutentore prima del rilascio in produzione.</p>
+      </article>
+      <article class="feat">
+        <i data-lucide="users" class="feat__icon"></i>
+        <div class="feat__num">04</div>
+        <h3>Gestione personale</h3>
+        <p>Pianificazione squadre interne, competenze certificate per tipo di intervento, calendario di reperibilità, ore lavorate per asset e per commessa.</p>
+      </article>
+      <article class="feat">
+        <i data-lucide="file-signature" class="feat__icon"></i>
+        <div class="feat__num">05</div>
+        <h3>Contratti di servizio</h3>
+        <p>Perimetro contrattuale per fornitore (asset coperti, esclusioni, KPI di SLA), penali, scadenze. Il CMMS sa quale WO è in scope di quale contratto.</p>
+      </article>
+      <article class="feat">
+        <i data-lucide="archive" class="feat__icon"></i>
+        <div class="feat__num">06</div>
+        <h3>Storico asset</h3>
+        <p>Ogni asset porta il suo libretto: interventi, fermi, ricambi sostituiti, costi accumulati. La base per la decisione "riparare o sostituire" — non più a memoria del capo officina.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Architettura ============ -->
+<section data-screen-label="04 Architettura">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Architettura · come si integra</div>
+      <h2>Un verticale, non un'isola.</h2>
+      <p>Il CMMS lavora dentro la cabina di regia: legge l'asset register dal Repository, riceve segnali dall'IoT, restituisce KPI al cruscotto di direzione, scambia documenti con il CDE.</p>
+    </div>
+
+    <div class="arch-grid">
+      <div>
+        <ul class="arch-list">
+          <li><i data-lucide="link"></i><div><strong>Repository (CDE)</strong> — eredita l'asset register strutturato. Una sola fonte di verità sugli asset, condivisa con BIM e KPI.</div></li>
+          <li><i data-lucide="cpu"></i><div><strong>IoT &amp; predittiva</strong> — riceve eventi (soglie, anomalie) e li trasforma in WO con priorità calcolata, non manuale.</div></li>
+          <li><i data-lucide="boxes"></i><div><strong>BIM-FM</strong> — un asset cliccato sul modello apre la sua scheda nel CMMS. La grafica non si sostituisce alla scheda — la indicizza.</div></li>
+          <li><i data-lucide="gauge"></i><div><strong>Dashboard KPI</strong> — alimenta la cabina di regia con MTTR, MTBF, % SLA rispettati per cluster e per contratto.</div></li>
+          <li><i data-lucide="folder-open"></i><div><strong>Documentale</strong> — manuali, schemi e certificazioni dell'asset disponibili nel contesto della WO, non in una cartella separata.</div></li>
+        </ul>
+      </div>
+
+      <div class="arch-schematic">
+        <svg viewBox="0 0 600 460" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#5A5A4F"/>
+            </marker>
+            <marker id="arr-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#10A098"/>
+            </marker>
+          </defs>
+
+          <!-- Center: CMMS -->
+          <rect x="220" y="190" width="160" height="80" rx="8" fill="#10A098" stroke="#0B7F78" stroke-width="1.5"/>
+          <text x="300" y="226" text-anchor="middle" class="box-teal-title" style="fill:#fff;">CMMS</text>
+          <text x="300" y="248" text-anchor="middle" style="fill:rgba(255,255,255,0.7);">VERTICALE 03</text>
+
+          <!-- TL: Repository -->
+          <rect x="40" y="30" width="160" height="60" rx="8" fill="#F7F6F2" stroke="#D9D5C9" stroke-width="1"/>
+          <text x="120" y="58" text-anchor="middle" class="box-title">Repository (CDE)</text>
+          <text x="120" y="76" text-anchor="middle">VERTICALE 01</text>
+
+          <!-- TR: BIM-FM -->
+          <rect x="400" y="30" width="160" height="60" rx="8" fill="#F7F6F2" stroke="#D9D5C9" stroke-width="1"/>
+          <text x="480" y="58" text-anchor="middle" class="box-title">BIM-FM</text>
+          <text x="480" y="76" text-anchor="middle">VERTICALE 02</text>
+
+          <!-- L: IoT -->
+          <rect x="40" y="200" width="140" height="60" rx="8" fill="#F7F6F2" stroke="#D9D5C9" stroke-width="1"/>
+          <text x="110" y="228" text-anchor="middle" class="box-title">IoT</text>
+          <text x="110" y="246" text-anchor="middle">VERTICALE 04</text>
+
+          <!-- R: EMS -->
+          <rect x="420" y="200" width="140" height="60" rx="8" fill="#F7F6F2" stroke="#D9D5C9" stroke-width="1"/>
+          <text x="490" y="228" text-anchor="middle" class="box-title">EMS</text>
+          <text x="490" y="246" text-anchor="middle">VERTICALE 05</text>
+
+          <!-- B: Dashboard KPI -->
+          <rect x="220" y="370" width="160" height="60" rx="8" fill="#F7F6F2" stroke="#D9D5C9" stroke-width="1"/>
+          <text x="300" y="398" text-anchor="middle" class="box-title">Dashboard KPI</text>
+          <text x="300" y="416" text-anchor="middle">VERTICALE 06</text>
+
+          <!-- Connecting lines -->
+          <path d="M 165 90 L 240 190" stroke="#5A5A4F" stroke-width="1.2" fill="none" marker-end="url(#arr)"/>
+          <path d="M 435 90 L 360 190" stroke="#5A5A4F" stroke-width="1.2" fill="none" marker-end="url(#arr)"/>
+          <path d="M 180 230 L 220 230" stroke="#10A098" stroke-width="1.4" fill="none" marker-end="url(#arr-teal)"/>
+          <path d="M 420 230 L 380 230" stroke="#5A5A4F" stroke-width="1.2" fill="none" marker-end="url(#arr)"/>
+          <path d="M 300 270 L 300 370" stroke="#10A098" stroke-width="1.4" fill="none" marker-end="url(#arr-teal)"/>
+
+          <!-- Edge labels -->
+          <text x="195" y="142" text-anchor="middle">asset register</text>
+          <text x="395" y="142" text-anchor="middle">scheda asset</text>
+          <text x="200" y="222" text-anchor="middle" fill="#10A098">eventi → WO</text>
+          <text x="400" y="222" text-anchor="middle">consumi</text>
+          <text x="318" y="324" fill="#10A098">KPI · SLA</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Compatibilità vendor ============ -->
+<section class="bg-soft" data-screen-label="05 Vendor">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Vendor di riferimento</div>
+      <h2>Vendor-agnostic. Con regole.</h2>
+      <p>MoM costruisce il CMMS con partner di prodotto. La selezione è motivata dal perimetro del cliente — non da accordi di canale. Il cliente può portare anche un CMMS in uso: lo integriamo con vincoli di qualità del dato.</p>
+    </div>
+
+    <div class="compat">
+      <div class="compat-head">
+        <div>Vendor / piattaforma</div>
+        <div>Ruolo in architettura MoM</div>
+        <div>Riferimenti normativi</div>
+        <div>Stato</div>
+      </div>
+      <div class="compat-row">
+        <div class="compat-row__vendor">AVL <span class="role">Partner di prodotto</span></div>
+        <div class="compat-row__role">CMMS / EAM core, asset register, WO</div>
+        <div class="compat-row__std">UNI 10147 · UNI EN 13306</div>
+        <div class="compat-row__status"><span class="pill"><span class="d"></span>In delivery</span></div>
+      </div>
+      <div class="compat-row">
+        <div class="compat-row__vendor">Prometeo <span class="role">Partner di prodotto</span></div>
+        <div class="compat-row__role">Mobile field service, WO mobile</div>
+        <div class="compat-row__std">UNI 10147</div>
+        <div class="compat-row__status"><span class="pill"><span class="d"></span>In delivery</span></div>
+      </div>
+      <div class="compat-row">
+        <div class="compat-row__vendor">CMMS legacy del cliente <span class="role">Sistema preesistente</span></div>
+        <div class="compat-row__role">Mantenuto, governato da MoM</div>
+        <div class="compat-row__std">Audit di qualità del dato</div>
+        <div class="compat-row__status"><span class="pill"><span class="d"></span>Caso per caso</span></div>
+      </div>
+      <div class="compat-row">
+        <div class="compat-row__vendor">SAP PM / Maximo <span class="role">Sistemi industriali</span></div>
+        <div class="compat-row__role">Integrazione asset register e WO</div>
+        <div class="compat-row__std">ISO 19650 (mapping dati)</div>
+        <div class="compat-row__status"><span class="pill"><span class="d"></span>Caso per caso</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Cosa consegniamo (dark) ============ -->
+<section class="bg-dark" data-screen-label="06 Deliverable">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Cosa consegniamo, in pratica</div>
+      <h2>Quattro deliverable. Misurabili.</h2>
+      <p>Un go-live di CMMS si chiude con materiale firmato e verificabile, non con uno screenshot di una dashboard. Questo è il pacchetto minimo che esce dalla Fase 03.</p>
+    </div>
+
+    <div class="deliv-grid">
+      <div class="deliv">
+        <div class="deliv__num">01</div>
+        <h4>Asset register strutturato</h4>
+        <p>Censimento, codifica gerarchica, classi di criticità, perimetro fisico e contrattuale per ogni asset.</p>
+      </div>
+      <div class="deliv">
+        <div class="deliv__num">02</div>
+        <h4>Piani di preventiva</h4>
+        <p>Frequenze, check-list, ruoli e responsabili. Normati ove esiste norma (UNI 10147 e specifiche).</p>
+      </div>
+      <div class="deliv">
+        <div class="deliv__num">03</div>
+        <h4>Configurazione SLA</h4>
+        <p>Soglie per cluster di asset, regole di routing, perimetro contrattuale per fornitore.</p>
+      </div>
+      <div class="deliv">
+        <div class="deliv__num">04</div>
+        <h4>Baseline KPI</h4>
+        <p>MTTR, MTBF, % SLA rispettati misurati nel primo mese di esercizio. Punto di partenza per il miglioramento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Altri verticali ============ -->
+<section data-screen-label="07 Altri verticali">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Verticali correlati</div>
+      <h2>Il CMMS è uno dei sei.</h2>
+      <p>Senza un Repository pulito e un IoT calibrato, il CMMS resta un foglio Excel più ordinato. Senza KPI, non sai se sta funzionando. Il valore è nell'orchestrazione.</p>
+    </div>
+
+    <div class="related-grid">
+      <a class="related" href="#">
+        <div class="related__num">01 · CDE</div>
+        <h4>Repository documentale</h4>
+        <p>L'archivio unico strutturato — base informativa di tutta la control room.</p>
+        <span class="related__arr">Scopri →</span>
+      </a>
+      <a class="related" href="#">
+        <div class="related__num">04 · IoT</div>
+        <h4>Sensoristica &amp; predittiva</h4>
+        <p>Eventi che diventano WO automaticamente — prima del guasto.</p>
+        <span class="related__arr">Scopri →</span>
+      </a>
+      <a class="related" href="#">
+        <div class="related__num">06 · KPI</div>
+        <h4>Dashboard KPI</h4>
+        <p>La cabina di regia visiva — MTTR, SLA, % conformità per direzione.</p>
+        <span class="related__arr">Scopri →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="bg-teal cta-band" data-screen-label="08 CTA">
+  <div class="wrap">
+    <div class="cta-grid">
+      <div>
+        <h2>Il vostro CMMS è già un sistema, o è ancora un foglio?</h2>
+        <p>Il Diagnostic Report fotografa la maturità del vostro sistema manutentivo — copertura asset, qualità dei piani, % SLA misurati — e indica le tre azioni più rilevanti per il primo trimestre.</p>
+      </div>
+      <div class="cta-band__actions">
+        <a href="mailto:info@aicom.it?subject=MoM%20%E2%80%94%20Richiesta%20di%20contatto" class="btn btn--ondark">Richiedi un contatto <span class="arr">→</span></a>
+        <a href="offerta.html" class="btn btn--secondary" style="border-color: rgba(255,255,255,0.5); color: #fff;">Vedi gli Advisory Packages</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Footer ============ -->
+<footer data-screen-label="99 Footer">
+  <div class="wrap">
+    <div class="ft-grid">
+      <div>
+        <div class="ft-logo">M<span class="o">o</span>M</div>
+        <p class="ft-tag">Meaning of Maintenance. Una control room ingegnerizzata per il governo del Facility Management.</p>
+        <div class="ft-aicom">Roma · Via Savoia 37<span class="div">·</span>P.IVA 18451811006</div>
+      </div>
+      <div class="ft-col">
+        <h5>Piattaforma</h5>
+        <ul>
+          <li><a href="index.html#piattaforma">Repository (CDE)</a></li>
+          <li><a href="index.html#piattaforma">BIM-FM</a></li>
+          <li><a href="verticale-cmms.html">CMMS</a></li>
+          <li><a href="index.html#piattaforma">IoT &amp; predittiva</a></li>
+          <li><a href="index.html#piattaforma">EMS</a></li>
+          <li><a href="index.html#piattaforma">Dashboard KPI</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5>Azienda</h5>
+        <ul>
+          <li><a href="#">Chi siamo</a></li>
+          <li>
+    </li>
+          <li><a href="offerta.html">Advisory packages</a></li>
+          <li><a href="mailto:info@aicom.it?subject=MoM%20%E2%80%94%20Richiesta%20di%20contatto">Contatti</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <div>© 2026 MoM S.r.l. — società del gruppo di ingegneria AICOM · P.IVA 18451811006</div>
+      <div class="right">
+        <a href="#">Privacy</a>
+        <a href="#">Cookie</a>
+        <a href="#">Note legali</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>lucide.createIcons();</script>
+<script src="site.js"></script>
+</body>
+</html>
