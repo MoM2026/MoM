@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Contatti · MoM — Richiedi un contatto</title>
+<title>Contact · MoM — Request contact</title>
 <link rel="stylesheet" href="colors_and_type.css">
 <link rel="stylesheet" href="site.css">
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
@@ -297,12 +297,12 @@
 <nav class="nav" data-screen-label="00 Navigation">
   <a href="index.html" class="nav__logo">M<span class="o">o</span>M</a>
   <div class="nav__items">
-    <a href="index.html#piattaforma">Piattaforma</a>
-    <a href="offerta.html">Offerta</a>
-    <a href="contatti.html" class="is-current">Contatti</a>
+    <a href="piattaforma-en.html">Platform</a>
+    <a href="offerta-en.html">Offer</a>
+    <a href="contatti-en.html" class="is-current">Contact</a>
   </div>
   <div class="nav__lang" style="margin-left: 4px; padding-left: 12px; border-left: 1px solid var(--hairline); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;">
-    <a href="index.html" class="cur" style="color: var(--mom-teal); text-decoration: none; padding: 0 4px;">IT</a><span style="color: var(--hairline);">/</span><a href="contatti-en.html" style="color: var(--fg-3); text-decoration: none; padding: 0 4px;">EN</a>
+    <a href="contatti.html" style="color: var(--fg-3); text-decoration: none; padding: 0 4px;">IT</a><span style="color: var(--hairline);">/</span><a href="contatti-en.html" class="cur" style="color: var(--mom-teal); text-decoration: none; padding: 0 4px;">EN</a>
   </div>
   
 </nav>
@@ -311,12 +311,12 @@
 <section class="ct-hero" data-screen-label="01 Hero">
   <div class="wrap">
     <div class="page-head__crumbs">
-      <a href="index.html">MoM</a>
+      <a href="index-en.html">MoM</a>
       <span class="sep">/</span>
-      <span class="cur">Contatti</span>
+      <span class="cur">Contact</span>
     </div>
-    <h1>Iniziamo da una <em>fotografia oggettiva</em>.</h1>
-    <p class="ct-hero__lead">Compilate il modulo qui sotto. Vi richiamiamo entro due giorni lavorativi per concordare un primo incontro di 45 minuti — e capire se ha senso impostare un Facility Diagnostic Report sul vostro perimetro.</p>
+    <h1>Start with an <em>objective baseline</em>.</h1>
+    <p class="ct-hero__lead">Fill in the form below. We call you back within two working days to arrange a first 45-minute conversation — and to gauge whether it makes sense to set up a Facility Diagnostic Report on your perimeter.</p>
   </div>
 </section>
 
@@ -326,145 +326,145 @@
     <div class="ct-grid">
 
       <!-- Form -->
-      <form class="form-card" action="mailto:info@aicom.it?subject=MoM%20%E2%80%94%20Richiesta%20di%20contatto" method="post" enctype="text/plain" autocomplete="off">
+      <form class="form-card" action="mailto:info@aicom.it?subject=MoM%20%E2%80%94%20Contact%20request" method="post" enctype="text/plain" autocomplete="off">
         <div class="form-card__head">
-          <h2>Richiesta di contatto</h2>
-          <div class="meta">B2B · Risposta entro 48h</div>
+          <h2>Contact request</h2>
+          <div class="meta">B2B · Response within 48h</div>
         </div>
 
-        <!-- Tipologia richiesta -->
+        <!-- Request type -->
         <div class="field">
-          <label>Tipologia di richiesta <span class="req">*</span></label>
+          <label>Type of request <span class="req">*</span></label>
           <div class="radio-grid">
             <label class="radio">
-              <div class="radio__h"><span class="dot"></span>Assessment iniziale</div>
-              <input type="radio" name="tipo" value="assessment" checked>
-              <p>Facility Diagnostic Report — il primo passo del metodo MoM, indipendente.</p>
+              <div class="radio__h"><span class="dot"></span>Initial assessment</div>
+              <input type="radio" name="type" value="assessment" checked>
+              <p>Facility Diagnostic Report — the first step of the MoM method, independent.</p>
             </label>
             <label class="radio">
               <div class="radio__h"><span class="dot"></span>Advisory packages</div>
-              <input type="radio" name="tipo" value="advisory">
-              <p>Governance ricorrente mensile su un perimetro già attivo o in valutazione.</p>
+              <input type="radio" name="type" value="advisory">
+              <p>Recurring monthly governance on a perimeter already live or under review.</p>
             </label>
             <label class="radio">
-              <div class="radio__h"><span class="dot"></span>Piattaforma / verticali</div>
-              <input type="radio" name="tipo" value="piattaforma">
-              <p>Approfondimento tecnico su uno o più verticali (CMMS, BIM-FM, IoT, EMS, KPI).</p>
+              <div class="radio__h"><span class="dot"></span>Platform / verticals</div>
+              <input type="radio" name="type" value="platform">
+              <p>Technical deep-dive on one or more verticals (CMMS, BIM-FM, IoT, EMS, KPI).</p>
             </label>
             <label class="radio">
-              <div class="radio__h"><span class="dot"></span>Partnership tecnica</div>
-              <input type="radio" name="tipo" value="partnership">
-              <p>Vendor di prodotto, system integrator, studi di ingegneria interessati a collaborare.</p>
+              <div class="radio__h"><span class="dot"></span>Technical partnership</div>
+              <input type="radio" name="type" value="partnership">
+              <p>Product vendors, system integrators, engineering firms interested in working together.</p>
             </label>
           </div>
         </div>
 
-        <!-- Identità -->
+        <!-- Identity -->
         <div class="field-row">
           <div class="field">
-            <label>Nome <span class="req">*</span></label>
+            <label>First name <span class="req">*</span></label>
             <input type="text" placeholder="Mario">
           </div>
           <div class="field">
-            <label>Cognome <span class="req">*</span></label>
+            <label>Last name <span class="req">*</span></label>
             <input type="text" placeholder="Rossi">
           </div>
         </div>
 
         <div class="field-row">
           <div class="field">
-            <label>Email aziendale <span class="req">*</span></label>
-            <input type="email" placeholder="m.rossi@azienda.it">
+            <label>Work email <span class="req">*</span></label>
+            <input type="email" placeholder="m.rossi@company.com">
           </div>
           <div class="field">
-            <label>Telefono</label>
+            <label>Phone</label>
             <input type="tel" placeholder="+39 011 0000000">
           </div>
         </div>
 
-        <!-- Organizzazione -->
+        <!-- Organisation -->
         <div class="field-row">
           <div class="field">
-            <label>Organizzazione <span class="req">*</span></label>
-            <input type="text" placeholder="Es. Cliente Industriale">
+            <label>Organisation <span class="req">*</span></label>
+            <input type="text" placeholder="e.g. Industrial Client">
           </div>
           <div class="field">
-            <label>Ruolo</label>
-            <input type="text" placeholder="Direzione tecnica / Facility Manager">
+            <label>Role</label>
+            <input type="text" placeholder="Technical management / Facility Manager">
           </div>
         </div>
 
         <div class="field-row">
           <div class="field">
-            <label>Settore</label>
+            <label>Sector</label>
             <select>
-              <option>Seleziona…</option>
-              <option>Industria manifatturiera</option>
-              <option>Real estate / Patrimoni immobiliari</option>
-              <option>Sanità</option>
-              <option>Pubblica amministrazione</option>
-              <option>Energia &amp; Utilities</option>
-              <option>Logistica</option>
-              <option>Terziario direzionale</option>
-              <option>Altro</option>
+              <option>Select…</option>
+              <option>Manufacturing industry</option>
+              <option>Real estate / Property portfolios</option>
+              <option>Healthcare</option>
+              <option>Public administration</option>
+              <option>Energy &amp; Utilities</option>
+              <option>Logistics</option>
+              <option>Commercial / office</option>
+              <option>Other</option>
             </select>
           </div>
           <div class="field">
-            <label>Numero di siti</label>
+            <label>Number of sites</label>
             <select>
-              <option>Seleziona…</option>
-              <option>1 sito</option>
-              <option>2–5 siti</option>
-              <option>6–15 siti</option>
-              <option>15+ siti</option>
+              <option>Select…</option>
+              <option>1 site</option>
+              <option>2–5 sites</option>
+              <option>6–15 sites</option>
+              <option>15+ sites</option>
             </select>
           </div>
         </div>
 
-        <!-- Verticali di interesse -->
+        <!-- Verticals of interest -->
         <div class="field">
-          <label>Verticali di interesse <span class="req" style="color: var(--fg-4); font-family: var(--font-sans); text-transform: none; letter-spacing: 0; font-size: 11px;">— opzionale</span></label>
+          <label>Verticals of interest <span class="req" style="color: var(--fg-4); font-family: var(--font-sans); text-transform: none; letter-spacing: 0; font-size: 11px;">— optional</span></label>
           <div class="checks">
             <label class="check"><span class="box"></span><input type="checkbox">01 · CDE</label>
             <label class="check"><span class="box"></span><input type="checkbox">02 · BIM-FM</label>
             <label class="check"><span class="box"></span><input type="checkbox">03 · CMMS</label>
-            <label class="check"><span class="box"></span><input type="checkbox">04 · IoT &amp; predittiva</label>
+            <label class="check"><span class="box"></span><input type="checkbox">04 · IoT &amp; predictive</label>
             <label class="check"><span class="box"></span><input type="checkbox">05 · EMS</label>
-            <label class="check"><span class="box"></span><input type="checkbox">06 · Dashboard KPI</label>
+            <label class="check"><span class="box"></span><input type="checkbox">06 · KPI dashboard</label>
           </div>
         </div>
 
-        <!-- Messaggio -->
+        <!-- Message -->
         <div class="field">
-          <label>Contesto della richiesta</label>
-          <textarea placeholder="Una o due righe sulla situazione attuale, il perimetro che vorreste analizzare, eventuali tempistiche."></textarea>
+          <label>Context of your request</label>
+          <textarea placeholder="A line or two on the current situation, the perimeter you'd like to assess, and any timelines."></textarea>
         </div>
 
         <div class="form-card__submit">
-          <p class="privacy">Inviando il modulo accettate l'<a href="#">informativa privacy</a>. Nessun marketing automation, nessuna newsletter.</p>
-          <button type="submit" class="btn btn--teal">Invia richiesta <span class="arr">→</span></button>
+          <p class="privacy">By submitting this form you accept the <a href="#">privacy policy</a>. No marketing automation, no newsletter.</p>
+          <button type="submit" class="btn btn--teal">Send request <span class="arr">→</span></button>
         </div>
       </form>
 
       <!-- Aside -->
       <aside class="aside">
         <div class="sla">
-          <div class="sla__eyebrow">Cosa garantiamo</div>
-          <p class="sla__title">Tempi e modi prima che firmiate qualcosa.</p>
+          <div class="sla__eyebrow">What we guarantee</div>
+          <p class="sla__title">Timing and terms before you sign anything.</p>
           <div class="sla__rows">
-            <div class="sla__row"><span class="lbl">Risposta alla richiesta</span><span class="val">&lt; 48 h</span></div>
-            <div class="sla__row"><span class="lbl">Primo incontro</span><span class="val">~ 1 settimana</span></div>
-            <div class="sla__row"><span class="lbl">Proposta Diagnostic</span><span class="val">~ 2 settimane</span></div>
-            <div class="sla__row"><span class="lbl">NDA su richiesta</span><span class="val">incluso</span></div>
+            <div class="sla__row"><span class="lbl">Response to your request</span><span class="val">&lt; 48 h</span></div>
+            <div class="sla__row"><span class="lbl">First meeting</span><span class="val">~ 1 week</span></div>
+            <div class="sla__row"><span class="lbl">Diagnostic proposal</span><span class="val">~ 2 weeks</span></div>
+            <div class="sla__row"><span class="lbl">NDA on request</span><span class="val">included</span></div>
           </div>
         </div>
 
         <div class="aside__item">
-          <div class="aside__eyebrow">Indirizzo principale</div>
-          <h3>Sede di Roma</h3>
-          <p>MoM S.r.l.<br>Via Savoia 37 · 00198 Roma · Italia</p>
+          <div class="aside__eyebrow">Main address</div>
+          <h3>Rome office</h3>
+          <p>MoM S.r.l.<br>Via Savoia 37 · 00198 Rome · Italy</p>
           <p class="aside__line"><a href="mailto:mom2026.srl@legalmail.it">mom2026.srl@legalmail.it</a></p>
-          <p class="aside__line">P.IVA 18451811006</p>
+          <p class="aside__line">VAT 18451811006</p>
         </div>
       </aside>
     </div>
@@ -475,35 +475,35 @@
 <section class="after" data-screen-label="03 Cosa succede dopo">
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow">Cosa succede dopo l'invio</div>
-      <h2>Quattro passi. Calendarizzati.</h2>
-      <p>Non riceverete una sequenza automatica di email commerciali. Riceverete una sola risposta da una persona, con due o tre opzioni di slot per il primo incontro.</p>
+      <div class="eyebrow">What happens after you submit</div>
+      <h2>Four steps. Scheduled.</h2>
+      <p>You won't get an automated sequence of sales emails. You'll get a single reply from a person, with two or three slot options for the first meeting.</p>
     </div>
 
     <div class="after__grid">
       <article class="step">
-        <div class="step__num">PASSO 01</div>
-        <h4>Riscontro entro 48h</h4>
-        <p>Una persona — non un sistema — risponde via email. Tre opzioni di slot per la prima chiamata.</p>
-        <span class="step__t">Entro 2 giorni lavorativi</span>
+        <div class="step__num">STEP 01</div>
+        <h4>Reply within 48h</h4>
+        <p>A person — not a system — replies by email. Three slot options for the first call.</p>
+        <span class="step__t">Within 2 working days</span>
       </article>
       <article class="step">
-        <div class="step__num">PASSO 02</div>
-        <h4>Prima chiamata · 45 min</h4>
-        <p>Capire il perimetro, la maturità FM attuale, gli obiettivi a 12 mesi. NDA disponibile, fornito su richiesta.</p>
-        <span class="step__t">Settimana successiva</span>
+        <div class="step__num">STEP 02</div>
+        <h4>First call · 45 min</h4>
+        <p>Understand the perimeter, current FM maturity, the 12-month objectives. NDA available, provided on request.</p>
+        <span class="step__t">The following week</span>
       </article>
       <article class="step">
-        <div class="step__num">PASSO 03</div>
-        <h4>Proposta Diagnostic</h4>
-        <p>Documento di una decina di pagine: perimetro, attività, deliverable, tempi, voci di costo separate.</p>
-        <span class="step__t">~ 2 settimane dopo la call</span>
+        <div class="step__num">STEP 03</div>
+        <h4>Diagnostic proposal</h4>
+        <p>A ten-page document: perimeter, activities, deliverables, timing, separate cost items.</p>
+        <span class="step__t">~ 2 weeks after the call</span>
       </article>
       <article class="step">
-        <div class="step__num">PASSO 04</div>
-        <h4>Decisione (vostra)</h4>
-        <p>Se la proposta convince, si parte. Altrimenti restate con una conversazione qualificata e nient'altro.</p>
-        <span class="step__t">Senza pressione</span>
+        <div class="step__num">STEP 04</div>
+        <h4>Decision (yours)</h4>
+        <p>If the proposal convinces you, we start. Otherwise you're left with a qualified conversation and nothing else.</p>
+        <span class="step__t">No pressure</span>
       </article>
     </div>
   </div>
@@ -515,37 +515,35 @@
     <div class="ft-grid">
       <div>
         <div class="ft-logo">M<span class="o">o</span>M</div>
-        <p class="ft-tag">Meaning of Maintenance. Una control room ingegnerizzata per il governo del Facility Management.</p>
-        <div class="ft-aicom">Roma · Via Savoia 37<span class="div">·</span>P.IVA 18451811006</div>
+        <p class="ft-tag">Meaning of Maintenance. An engineered control room for Facility Management governance.</p>
+        <div class="ft-aicom">Rome · Via Savoia 37<span class="div">·</span>VAT 18451811006</div>
       </div>
       <div class="ft-col">
-        <h5>Piattaforma</h5>
+        <h5>Platform</h5>
         <ul>
-          <li><a href="index.html#piattaforma">Repository (CDE)</a></li>
-          <li><a href="index.html#piattaforma">BIM-FM</a></li>
-          <li><a href="verticale-cmms.html">CMMS</a></li>
-          <li><a href="index.html#piattaforma">IoT &amp; predittiva</a></li>
-          <li><a href="index.html#piattaforma">EMS</a></li>
-          <li><a href="index.html#piattaforma">Dashboard KPI</a></li>
+          <li><a href="piattaforma-en.html#repository">Repository (CDE)</a></li>
+          <li><a href="piattaforma-en.html#bim">BIM-FM</a></li>
+          <li><a href="piattaforma-en.html#cmms">CMMS</a></li>
+          <li><a href="piattaforma-en.html#iot">IoT &amp; predictive</a></li>
+          <li><a href="piattaforma-en.html#ems">EMS</a></li>
+          <li><a href="piattaforma-en.html#kpi">KPI dashboard</a></li>
         </ul>
       </div>
       <div class="ft-col">
-        <h5>Azienda</h5>
+        <h5>Company</h5>
         <ul>
-          <li><a href="#">Chi siamo</a></li>
-          <li>
-    </li>
-          <li><a href="offerta.html">Advisory packages</a></li>
-          <li><a href="contatti.html">Contatti</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="offerta-en.html">Advisory packages</a></li>
+          <li><a href="contatti-en.html">Contact</a></li>
         </ul>
       </div>
     </div>
     <div class="ft-bottom">
-      <div>© 2026 MoM S.r.l. — società del gruppo di ingegneria AICOM · P.IVA 18451811006</div>
+      <div>© 2026 MoM S.r.l. — part of the AICOM engineering group · VAT 18451811006</div>
       <div class="right">
         <a href="#">Privacy</a>
         <a href="#">Cookie</a>
-        <a href="#">Note legali</a>
+        <a href="#">Legal notes</a>
       </div>
     </div>
   </div>

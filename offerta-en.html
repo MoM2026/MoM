@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Offer · MoM — Architecture, packages and adoption programme</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<link rel="stylesheet" href="site.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  /* ============ Offerta MoM — local ============ */
+
+  /* Architettura 6 voci */
+  .offerta-table {
+    border: 1px solid var(--hairline);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--paper);
+    margin-top: 56px;
+  }
+  .of-head, .of-row {
+    display: grid; grid-template-columns: 60px 1.2fr 2fr 220px;
+    gap: 24px;
+  }
+  .of-head {
+    padding: 14px 28px;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--fg-4);
+    background: var(--paper-strong);
+  }
+  .of-head__type { text-align: right; }
+  .of-row {
+    padding: 22px 28px;
+    border-top: 1px solid var(--hairline);
+    align-items: baseline;
+  }
+  .of-row__num { font-family: var(--font-mono); font-size: 12px; color: var(--mom-teal); letter-spacing: 0.06em; }
+  .of-row__name { font-family: var(--font-serif); font-size: 22px; letter-spacing: -0.01em; color: var(--fg-1); }
+  .of-row__desc { font-family: var(--font-sans); font-size: 14px; line-height: 1.55; color: var(--fg-3); }
+  .of-row__type { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-4); text-align: right; }
+
+  /* Advisory tiers (no prices) */
+  .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 56px; align-items: stretch; }
+  .tier {
+    border: 1px solid var(--hairline);
+    border-radius: 12px;
+    padding: 36px 32px 32px;
+    background: var(--paper);
+    display: flex; flex-direction: column;
+    position: relative;
+  }
+  .tier--featured { background: var(--ink-deep); color: var(--fg-on-dark); border-color: var(--ink-line); }
+  .tier__num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; color: var(--mom-teal); margin-bottom: 14px; }
+  .tier h3 {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: 30px; line-height: 1.15; letter-spacing: -0.01em;
+    color: var(--fg-1); margin: 0 0 8px;
+  }
+  .tier--featured h3 { color: var(--fg-on-dark); }
+  .tier__role { font-family: var(--font-sans); font-size: 13px; color: var(--fg-4); margin: 0 0 28px; }
+  .tier--featured .tier__role { color: var(--fg-on-dark-mute); }
+  .tier__includes {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--fg-4); margin-bottom: 14px;
+    padding-top: 20px; border-top: 1px solid var(--hairline-soft);
+  }
+  .tier--featured .tier__includes { color: var(--fg-on-dark-mute); border-color: var(--ink-line); }
+  .tier__list { list-style: none; padding: 0; margin: 0 0 28px; }
+  .tier__list li {
+    padding: 12px 0;
+    border-top: 1px solid var(--hairline-soft);
+    font-family: var(--font-sans); font-size: 14px;
+    color: var(--fg-2); display: flex; gap: 10px; line-height: 1.5;
+  }
+  .tier--featured .tier__list li { color: var(--fg-on-dark); border-color: var(--ink-line); }
+  .tier__list li:first-child { border-top: none; }
+  .tier__list i { width: 16px; height: 16px; flex-shrink: 0; color: var(--mom-teal); margin-top: 3px; }
+  .tier__list li.not-incl { color: var(--fg-5); }
+  .tier--featured .tier__list li.not-incl { color: var(--fg-on-dark-mute); opacity: 0.5; }
+  .tier__cta { margin-top: auto; }
+  .tier__badge {
+    position: absolute; top: -10px; right: 24px;
+    background: var(--mom-teal); color: #fff;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 999px;
+  }
+
+  /* Programma di adozione · step verticali, no tempi */
+  .programma { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 56px; position: relative; }
+  .programma::before {
+    content: ''; position: absolute; left: 32px; right: 32px; top: 36px;
+    height: 1px; background: var(--hairline-soft); z-index: 0;
+  }
+  .step {
+    background: var(--paper);
+    border: 1px solid var(--hairline);
+    border-radius: 12px;
+    padding: 28px;
+    position: relative;
+    z-index: 1;
+  }
+  .step__dot {
+    width: 24px; height: 24px; border-radius: 999px;
+    background: var(--mom-teal); color: #fff;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 22px; letter-spacing: 0;
+  }
+  .step h4 {
+    font-family: var(--font-serif); font-weight: 400; font-size: 22px;
+    letter-spacing: -0.01em; color: var(--fg-1); margin: 0 0 12px; line-height: 1.2;
+  }
+  .step__lead {
+    font-family: var(--font-sans); font-size: 14px; line-height: 1.55;
+    color: var(--fg-3); margin: 0 0 16px;
+  }
+  .step__list { list-style: none; margin: 0; padding: 0; }
+  .step__list li {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--fg-4); letter-spacing: 0.06em;
+    padding: 6px 0;
+    border-top: 1px dashed var(--hairline-soft);
+  }
+  .step__list li:first-child { border-top: none; }
+
+  /* Team */
+  .roles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 56px; }
+  .role {
+    background: var(--paper); border: 1px solid var(--hairline);
+    border-radius: 10px; padding: 28px;
+  }
+  .role__icon {
+    width: 36px; height: 36px;
+    color: var(--mom-teal); margin-bottom: 24px;
+    padding: 6px; border: 1px solid var(--hairline); border-radius: 6px;
+  }
+  .role h4 { font-family: var(--font-serif); font-weight: 400; font-size: 20px; letter-spacing: -0.01em; color: var(--fg-1); margin: 0 0 8px; line-height: 1.25; }
+  .role__role { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-4); margin: 0 0 14px; }
+  .role p { font-family: var(--font-sans); font-size: 13px; line-height: 1.55; color: var(--fg-3); margin: 0; }
+
+  /* FAQ */
+  .faq { border-top: 1px solid var(--hairline); margin-top: 56px; }
+  details.faq__item { border-bottom: 1px solid var(--hairline); padding: 24px 0; }
+  details.faq__item summary {
+    list-style: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    font-family: var(--font-serif); font-size: 22px; letter-spacing: -0.01em; color: var(--fg-1);
+  }
+  details.faq__item summary::-webkit-details-marker { display: none; }
+  details.faq__item summary .ico {
+    flex-shrink: 0; width: 36px; height: 36px;
+    border: 1px solid var(--hairline); border-radius: 999px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--fg-3); transition: all var(--t-base) var(--ease);
+  }
+  details.faq__item[open] summary .ico { background: var(--mom-teal); color: #fff; border-color: var(--mom-teal); transform: rotate(45deg); }
+  details.faq__item .answer { margin-top: 16px; max-width: 70ch; font-family: var(--font-sans); font-size: 15px; line-height: 1.6; color: var(--fg-3); }
+
+  /* CTA */
+  .cta-band { padding: 96px 0; }
+  .cta-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 56px; align-items: center; }
+  .cta-band h2 {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: 52px; line-height: 1.08; letter-spacing: -0.01em;
+    color: #fff; margin: 0 0 16px; max-width: 18ch;
+  }
+  .cta-band p {
+    font-family: var(--font-sans); font-size: 17px; line-height: 1.55;
+    color: rgba(255,255,255,0.86); margin: 0; max-width: 40ch;
+  }
+
+  /* RESPONSIVE-INJECTED */
+@media (max-width: 1024px) {
+  .tiers { grid-template-columns: 1fr !important; }
+  .programma { grid-template-columns: 1fr 1fr !important; }
+  .programma::before { display: none; }
+  .roles { grid-template-columns: 1fr 1fr !important; }
+  .of-head, .of-row { grid-template-columns: 50px 1.2fr 2fr 140px !important; gap: 16px !important; padding: 18px 20px !important; }
+}
+@media (max-width: 768px) {
+  .of-head, .of-row { grid-template-columns: 40px 1fr 1.5fr !important; gap: 12px !important; padding: 16px !important; }
+  .of-head__type, .of-row__type { display: none; }
+  .of-row__name { font-size: 18px; }
+  .of-row__desc { font-size: 13px; }
+  .programma { grid-template-columns: 1fr !important; }
+  .roles { grid-template-columns: 1fr !important; }
+  .cta-grid { grid-template-columns: 1fr !important; gap: 32px; }
+  .cta-band h2 { font-size: 36px; }
+  /* Services accessory grid */
+  section[data-screen-label="02 Architettura"] [style*="grid-template-columns: repeat(3, 1fr)"] { grid-template-columns: 1fr !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ Nav ============ -->
+<nav class="nav" data-screen-label="00 Navigation">
+  <a href="index.html" class="nav__logo">M<span class="o">o</span>M</a>
+  <div class="nav__items">
+    <a href="piattaforma-en.html">Platform</a>
+    <a href="offerta-en.html" class="is-current">Offer</a>
+    <a href="contatti-en.html">Contact</a>
+  </div>
+  <div class="nav__lang" style="margin-left: 4px; padding-left: 12px; border-left: 1px solid var(--hairline); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;">
+    <a href="offerta.html" style="color: var(--fg-3); text-decoration: none; padding: 0 4px;">IT</a><span style="color: var(--hairline);">/</span><a href="offerta-en.html" class="cur" style="color: var(--mom-teal); text-decoration: none; padding: 0 4px;">EN</a>
+  </div>
+  
+</nav>
+
+<!-- ============ Page head ============ -->
+<section class="page-head" data-screen-label="01 Hero">
+  <div class="wrap">
+    <div class="page-head__crumbs">
+      <a href="index-en.html">MoM</a>
+      <span class="sep">/</span>
+      <span class="cur">MoM Offer</span>
+    </div>
+    <h1>A <em>matrix</em> of items. An economic perimeter you can govern.</h1>
+    <p class="page-head__lead">The MoM offer is made of six separate items — diagnostic, setup, subscription, evolutive hours, advisory, ancillary services — plus three accompaniment packages. The client chooses the intensity of oversight. The economic perimeter stays governable over time.</p>
+  </div>
+</section>
+
+<!-- ============ Architettura 6 voci ============ -->
+<section data-screen-label="02 Architettura">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Architecture of the offer · six items</div>
+      <h2>Six items. Separate by design.</h2>
+      <p>Every MoM quote is built from these six items. Software, engineering and physical scope stay separate to build an economic perimeter you can govern over time.</p>
+    </div>
+
+    <div class="offerta-table">
+      <div class="of-head">
+        <div></div>
+        <div>Item</div>
+        <div>What it pays for</div>
+        <div class="of-head__type">Type</div>
+      </div>
+      <div class="of-row">
+        <div class="of-row__num">01</div>
+        <div class="of-row__name">Assessment</div>
+        <div class="of-row__desc">Initial Facility Diagnostic Report — analysis and positioning, independent of any later phase.</div>
+        <div class="of-row__type">One-off</div>
+      </div>
+      <div class="of-row">
+        <div class="of-row__num">02</div>
+        <div class="of-row__name">Setup &amp; rollout</div>
+        <div class="of-row__desc">Implementation of the verticals, data migration, training, go-live. Priced on a defined perimeter.</div>
+        <div class="of-row__type">One-off · per phase</div>
+      </div>
+      <div class="of-row">
+        <div class="of-row__num">03</div>
+        <div class="of-row__name">Software subscription</div>
+        <div class="of-row__desc">Technical management of the installed verticals. Covers the industrial costs MoM bears towards the product partners.</div>
+        <div class="of-row__type">Recurring · annual</div>
+      </div>
+      <div class="of-row">
+        <div class="of-row__num">04</div>
+        <div class="of-row__name">Evolutive hours</div>
+        <div class="of-row__desc">Pay-as-you-go engineering hours for evolutions, integrations, new dashboards, data governance.</div>
+        <div class="of-row__type">Pay-as-you-go</div>
+      </div>
+      <div class="of-row">
+        <div class="of-row__num">05</div>
+        <div class="of-row__name">Advisory packages</div>
+        <div class="of-row__desc">Recurring governance packages: technical committee, KPI follow-up, support to the client's management.</div>
+        <div class="of-row__type">Recurring</div>
+      </div>
+      <div class="of-row">
+        <div class="of-row__num">06</div>
+        <div class="of-row__name">Ancillary services</div>
+        <div class="of-row__desc">The accompaniment along the client's processes. During adoption, specific needs emerge — regulatory, technical, documentary — which MoM covers vertically with dedicated services. The grid below lists the most recurring ones.</div>
+        <div class="of-row__type">Per perimeter</div>
+      </div>
+    </div>
+
+    <!-- Griglia esplosa dei servizi accessori -->
+    <div style="margin-top: 56px;">
+      <div class="eyebrow" style="font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mom-teal); margin: 0 0 18px;">06 · Ancillary services · verticals along the client's journey</div>
+      <h3 style="font-family: var(--font-serif); font-weight: 400; font-size: 36px; letter-spacing: -0.01em; line-height: 1.15; color: var(--fg-1); margin: 0 0 18px; max-width: none;">Whatever emerges along the way — we handle it with ancillary services.</h3>
+      <p style="font-family: var(--font-sans); font-size: 17px; line-height: 1.55; color: var(--fg-3); margin: 0 0 36px; max-width: 64ch;">Every client opens, as work proceeds, a set of specific needs. We don't cover them all the same way: for each one we build a technical perimeter and a dedicated quote.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+        <article style="border: 1px solid var(--hairline); border-radius: 10px; padding: 22px 24px; background: var(--paper);">
+          <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; color: var(--mom-teal); margin-bottom: 12px;">ON DATA</div>
+          <h4 style="font-family: var(--font-serif); font-weight: 400; font-size: 18px; letter-spacing: -0.005em; color: var(--fg-1); margin: 0 0 8px; line-height: 1.25;">Census and population</h4>
+          <p style="font-family: var(--font-sans); font-size: 13px; line-height: 1.5; color: var(--fg-3); margin: 0;">Document surveys, asset census, bulk population of the repository and the CMMS registries.</p>
+        </article>
+        <article style="border: 1px solid var(--hairline); border-radius: 10px; padding: 22px 24px; background: var(--paper);">
+          <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; color: var(--mom-teal); margin-bottom: 12px;">ON THE MODEL</div>
+          <h4 style="font-family: var(--font-serif); font-weight: 400; font-size: 18px; letter-spacing: -0.005em; color: var(--fg-1); margin: 0 0 8px; line-height: 1.25;">Scan-to-BIM and modelling</h4>
+          <p style="font-family: var(--font-sans); font-size: 13px; line-height: 1.5; color: var(--fg-3); margin: 0;">Laser survey, photogrammetry, delivery as an FM-ready as-built model with agreed LOD/LOI.</p>
+        </article>
+        <article style="border: 1px solid var(--hairline); border-radius: 10px; padding: 22px 24px; background: var(--paper);">
+          <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; color: var(--mom-teal); margin-bottom: 12px;">ON DOCUMENTS</div>
+          <h4 style="font-family: var(--font-serif); font-weight: 400; font-size: 18px; letter-spacing: -0.005em; color: var(--fg-1); margin: 0 0 8px; line-height: 1.25;">Technical-documentary due diligence</h4>
+          <p style="font-family: var(--font-sans); font-size: 13px; line-height: 1.5; color: var(--fg-3); margin: 0;">Verification of the complete building package: plants, fire safety, CPI, land registry, regulatory compliance.</p>
+        </article>
+        <article style="border: 1px solid var(--hairline); border-radius: 10px; padding: 22px 24px; background: var(--paper);">
+          <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; color: var(--mom-teal); margin-bottom: 12px;">ON SITE</div>
+          <h4 style="font-family: var(--font-serif); font-weight: 400; font-size: 18px; letter-spacing: -0.005em; color: var(--fg-1); margin: 0 0 8px; line-height: 1.25;">IoT implementation</h4>
+          <p style="font-family: var(--font-sans); font-size: 13px; line-height: 1.5; color: var(--fg-3); margin: 0;">Sensor selection, cabling design, installation and commissioning of the telemetry.</p>
+        </article>
+        <article style="border: 1px solid var(--hairline); border-radius: 10px; padding: 22px 24px; background: var(--paper);">
+          <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; color: var(--mom-teal); margin-bottom: 12px;">ON ENERGY</div>
+          <h4 style="font-family: var(--font-serif); font-weight: 400; font-size: 18px; letter-spacing: -0.005em; color: var(--fg-1); margin: 0 0 8px; line-height: 1.25;">Energy diagnostics</h4>
+          <p style="font-family: var(--font-sans); font-size: 13px; line-height: 1.5; color: var(--fg-3); margin: 0;">EGE-signed diagnostics, normalised baselines, efficiency plans, support for Conto Termico and TEE.</p>
+        </article>
+        <article style="border: 1px solid var(--hairline); border-radius: 10px; padding: 22px 24px; background: var(--paper);">
+          <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; color: var(--mom-teal); margin-bottom: 12px;">ON COMPLIANCE</div>
+          <h4 style="font-family: var(--font-serif); font-weight: 400; font-size: 18px; letter-spacing: -0.005em; color: var(--fg-1); margin: 0 0 8px; line-height: 1.25;">Amnesties and upgrades</h4>
+          <p style="font-family: var(--font-sans); font-size: 13px; line-height: 1.5; color: var(--fg-3); margin: 0;">Planning and land-registry amnesties, CPI updates, DPR 462 checks, DM 37/08 upgrades.</p>
+        </article>
+        <article style="border: 1px solid var(--hairline); border-radius: 10px; padding: 22px 24px; background: var(--paper);">
+          <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; color: var(--mom-teal); margin-bottom: 12px;">ON PROCESSES</div>
+          <h4 style="font-family: var(--font-serif); font-weight: 400; font-size: 18px; letter-spacing: -0.005em; color: var(--fg-1); margin: 0 0 8px; line-height: 1.25;">FM Management Manual</h4>
+          <p style="font-family: var(--font-sans); font-size: 13px; line-height: 1.5; color: var(--fg-3); margin: 0;">Written, applicable maintenance procedures, coding, asset and vendor management workflows.</p>
+        </article>
+        <article style="border: 1px solid var(--hairline); border-radius: 10px; padding: 22px 24px; background: var(--paper);">
+          <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; color: var(--mom-teal); margin-bottom: 12px;">ON PROCUREMENT</div>
+          <h4 style="font-family: var(--font-serif); font-weight: 400; font-size: 18px; letter-spacing: -0.005em; color: var(--fg-1); margin: 0 0 8px; line-height: 1.25;">FM specifications and tenders</h4>
+          <p style="font-family: var(--font-sans); font-size: 13px; line-height: 1.5; color: var(--fg-3); margin: 0;">Drafting of technical specifications, scoring matrices, support for running maintenance tenders.</p>
+        </article>
+        <article style="border: 1px solid var(--hairline); border-radius: 10px; padding: 22px 24px; background: var(--paper);">
+          <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; color: var(--mom-teal); margin-bottom: 12px;">ON FUNDING</div>
+          <h4 style="font-family: var(--font-serif); font-weight: 400; font-size: 18px; letter-spacing: -0.005em; color: var(--fg-1); margin: 0 0 8px; line-height: 1.25;">Access to incentives</h4>
+          <p style="font-family: var(--font-sans); font-size: 13px; line-height: 1.5; color: var(--fg-3); margin: 0;">Industria 4.0/5.0, Conto Termico, TEE, PNRR funds. Guidance and dossiers on fundable interventions.</p>
+        </article>
+      </div>
+
+      <p style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--fg-4); text-align: center; margin: 36px auto 0; max-width: 70ch;">
+        The list is not exhaustive. Each perimeter can activate specific verticals — priced separately.
+      </p>
+  </div>
+</section>
+
+<!-- ============ Advisory tiers (no prices) ============ -->
+<section class="bg-soft" data-screen-label="03 Advisory">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Item 05 · Advisory packages</div>
+      <h2>Three possible intensities of oversight. One logic.</h2>
+      <p>Every package includes a recurring governance committee, dedicated advisory hours, KPI follow-up. They differ in cadence, depth of analytical work and the breadth of the team involved. Pricing is calibrated on the client's perimeter.</p>
+    </div>
+
+    <div class="tiers">
+
+      <!-- Essentials -->
+      <article class="tier">
+        <div class="tier__num">PACKAGE 01</div>
+        <h3>Essentials</h3>
+        <p class="tier__role">For single-site organisations, the initial adoption phase, a contained perimeter.</p>
+        <div class="tier__includes">What's included</div>
+        <ul class="tier__list">
+          <li><i data-lucide="check"></i>Recurring technical committee · 90 min</li>
+          <li><i data-lucide="check"></i>Periodic KPI follow-up</li>
+          <li><i data-lucide="check"></i>Summary management report</li>
+          <li><i data-lucide="check"></i>Engineering hot-line · email + tracker</li>
+          <li class="not-incl"><i data-lucide="minus"></i>Sample operational audits</li>
+          <li class="not-incl"><i data-lucide="minus"></i>Recurring site visits</li>
+        </ul>
+      </article>
+
+      <!-- Standard (featured) -->
+      <article class="tier tier--featured">
+        <div class="tier__badge">Reference package</div>
+        <div class="tier__num">PACKAGE 02</div>
+        <h3>Standard</h3>
+        <p class="tier__role">Multi-site or single high-criticality site. The catalogue's reference package.</p>
+        <div class="tier__includes">What's included</div>
+        <ul class="tier__list">
+          <li><i data-lucide="check"></i>Recurring technical committee · 2 hours</li>
+          <li><i data-lucide="check"></i>KPI follow-up at close cadence</li>
+          <li><i data-lucide="check"></i>Extended management report</li>
+          <li><i data-lucide="check"></i>Sample operational audits</li>
+          <li><i data-lucide="check"></i>Scheduled site visits</li>
+          <li><i data-lucide="check"></i>Periodic evolution roadmap</li>
+        </ul>
+      </article>
+
+      <!-- Enterprise -->
+      <article class="tier">
+        <div class="tier__num">PACKAGE 03</div>
+        <h3>Enterprise</h3>
+        <p class="tier__role">Distributed portfolios, industrial groups, perimeters with a structured technical management.</p>
+        <div class="tier__includes">What's included</div>
+        <ul class="tier__list">
+          <li><i data-lucide="check"></i>High-frequency technical committee</li>
+          <li><i data-lucide="check"></i>Continuous KPI follow-up</li>
+          <li><i data-lucide="check"></i>Management &amp; group reporting</li>
+          <li><i data-lucide="check"></i>Recurring operational audits</li>
+          <li><i data-lucide="check"></i>Scheduled site visits</li>
+          <li><i data-lucide="check"></i>Continuous evolution roadmap</li>
+          <li><i data-lucide="check"></i>Dedicated team · Account + Engineer</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Programma di adozione (step, no tempi) ============ -->
+<section data-screen-label="04 Programma">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Adoption programme · by step</div>
+      <h2>Four phases. The duration is assessed per client.</h2>
+      <p>We don't sell a standard calendar. Every MoM adoption goes through four logical phases — but cadence and depth are tuned to the client's perimeter, FM maturity and data availability.</p>
+    </div>
+
+    <div class="programma">
+      <article class="step">
+        <div class="step__dot">01</div>
+        <h4>Diagnostic</h4>
+        <p class="step__lead">Independent Facility Diagnostic Report. An objective baseline of FM maturity, asset status and digitalisation potential.</p>
+        <ul class="step__list">
+          <li>Asset &amp; plant audit</li>
+          <li>Document audit</li>
+          <li>Maturity scoring</li>
+          <li>Action plan</li>
+        </ul>
+      </article>
+
+      <article class="step">
+        <div class="step__dot">02</div>
+        <h4>Design</h4>
+        <p class="step__lead">Design &amp; Roadmap. Control-room architecture tailored to the client, choice of verticals, integration with existing systems.</p>
+        <ul class="step__list">
+          <li>Modular architecture</li>
+          <li>Vertical selection</li>
+          <li>Document standards</li>
+          <li>Evolution roadmap</li>
+        </ul>
+      </article>
+
+      <article class="step">
+        <div class="step__dot">03</div>
+        <h4>Implementation</h4>
+        <p class="step__lead">Setup, data migration, training, progressive go-live per vertical. Start of the software subscription and advisory.</p>
+        <ul class="step__list">
+          <li>Vertical setup</li>
+          <li>Data onboarding</li>
+          <li>Operational training</li>
+          <li>Phased go-live</li>
+        </ul>
+      </article>
+
+      <article class="step">
+        <div class="step__dot">04</div>
+        <h4>Governance</h4>
+        <p class="step__lead">Continuous operation with recurring advisory, pay-as-you-go evolutive hours, periodic audits. The control room evolves with the client.</p>
+        <ul class="step__list">
+          <li>Recurring advisory</li>
+          <li>Evolutive hours</li>
+          <li>Operational audits</li>
+          <li>Evolution roadmap</li>
+        </ul>
+      </article>
+    </div>
+
+    <p style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--fg-4); text-align: center; margin: 40px auto 0; max-width: 64ch;">
+      Timelines to be agreed during the Diagnostic phase · each step has a formal control point before moving to the next.
+    </p>
+  </div>
+</section>
+
+<!-- ============ Team Advisory ============ -->
+<section class="bg-soft" data-screen-label="05 Team">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Who makes up the Advisory team</div>
+      <h2>Six roles. Stable over time.</h2>
+      <p>The client doesn't talk to "an account". They talk to a named team with history on the engagement — in the Standard and Enterprise packages, with dedicated product and domain specialists.</p>
+    </div>
+
+    <div class="roles">
+      <article class="role">
+        <i data-lucide="briefcase" class="role__icon"></i>
+        <p class="role__role">Lead</p>
+        <h4>Account Engineer</h4>
+        <p>Stable point of contact with the client, ownership of the technical committee and of the evolution roadmap.</p>
+      </article>
+      <article class="role">
+        <i data-lucide="boxes" class="role__icon"></i>
+        <p class="role__role">Specialist</p>
+        <h4>Platform Engineer</h4>
+        <p>Technical knowledge of the control room configured for the client, integrations with verticals and third-party systems.</p>
+      </article>
+      <article class="role">
+        <i data-lucide="hard-hat" class="role__icon"></i>
+        <p class="role__role">Domain specialist</p>
+        <h4>FM Engineer</h4>
+        <p>A maintenance engineer from the AICOM group, with years of industrial and commercial FM experience. Technical reading of the KPIs.</p>
+      </article>
+      <article class="role">
+        <i data-lucide="line-chart" class="role__icon"></i>
+        <p class="role__role">Cross-functional</p>
+        <h4>Data Analyst</h4>
+        <p>Building and validating the dashboards, tuning the thresholds, analysis on request from the client's management.</p>
+      </article>
+      <article class="role">
+        <i data-lucide="box" class="role__icon"></i>
+        <p class="role__role">Domain specialist</p>
+        <h4>BIM Specialist</h4>
+        <p>BIM-FM coordination: information plan, as-built models, object coding, update rules. Interface with the Scan-to-BIM partners.</p>
+      </article>
+      <article class="role">
+        <i data-lucide="zap" class="role__icon"></i>
+        <p class="role__role">Domain specialist</p>
+        <h4>Energy Manager</h4>
+        <p>Industry-focused certified energy expert (EGE). Baseline reading, efficiency plans, guidance on incentives (TEE, Conto Termico, 4.0/5.0).</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section data-screen-label="06 FAQ">
+  <div class="wrap wrap--narrow">
+    <div class="section-head" style="max-width: 720px;">
+      <div class="eyebrow">Frequently asked questions</div>
+      <h2>What we get asked before signing.</h2>
+    </div>
+
+    <div class="faq">
+      <details class="faq__item" open>
+        <summary>Is Advisory mandatory after go-live?<span class="ico"><i data-lucide="plus"></i></span></summary>
+        <div class="answer">No. It's strongly recommended — the platform's value depends on the discipline with which KPIs are read and turned into decisions — but it remains the client's choice. There is a "post-rollout without Advisory" path: MoM keeps managing the software subscription, while the company takes data governance in-house.</div>
+      </details>
+      <details class="faq__item">
+        <summary>How is it different from "evolutive hours"?<span class="ico"><i data-lucide="plus"></i></span></summary>
+        <div class="answer">Evolutive hours (item 04) are pay-as-you-go engineering: new dashboards, integrations, routing rules. Advisory (item 05) is governance and reading of the data. It's about "what happens on the engagement", not "what new things we build". Keeping them separate lets us always tell you what you're paying for.</div>
+      </details>
+      <details class="faq__item">
+        <summary>How long does the adoption path take?<span class="ico"><i data-lucide="plus"></i></span></summary>
+        <div class="answer">It depends on the perimeter and the starting maturity. The Diagnostic clarifies realistic timelines for the later phases: some clients reach progressive go-live within a few months, others prefer a more relaxed programme with verticals activated in waves. We don't sell a fixed calendar.</div>
+      </details>
+      <details class="faq__item">
+        <summary>Can I move from Essentials to Standard?<span class="ico"><i data-lucide="plus"></i></span></summary>
+        <div class="answer">Yes. Upgrades are agreed with notice and take effect from the next service period. Downgrades require closing the current quarter, so as not to interrupt a technical committee already under way.</div>
+      </details>
+      <details class="faq__item">
+        <summary>What's inside an "operational audit"?<span class="ico"><i data-lucide="plus"></i></span></summary>
+        <div class="answer">A sample check on a defined perimeter: adherence of executed preventive plans to the theoretical schedule, quality of closed WOs, completeness of the associated documentation, calibration of the IoT thresholds. The output is a signed audit note, with any corrective actions.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="bg-teal cta-band" data-screen-label="07 CTA">
+  <div class="wrap">
+    <div class="cta-grid">
+      <div>
+        <h2>Let's define the perimeter starting from your KPIs.</h2>
+        <p>A 45-minute call — plus a written summary — to understand which package best fits your organisation's FM maturity.</p>
+      </div>
+      <div>
+        <a href="contatti-en.html" class="btn btn--ondark">Request contact <span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Footer ============ -->
+<footer data-screen-label="99 Footer">
+  <div class="wrap">
+    <div class="ft-grid">
+      <div>
+        <div class="ft-logo">M<span class="o">o</span>M</div>
+        <p class="ft-tag">Meaning of Maintenance. An engineered control room for Facility Management governance.</p>
+        <div class="ft-aicom">Rome · Via Savoia 37<span class="div">·</span>VAT 18451811006</div>
+      </div>
+      <div class="ft-col">
+        <h5>Platform</h5>
+        <ul>
+          <li><a href="piattaforma-en.html#repository">Repository (CDE)</a></li>
+          <li><a href="piattaforma-en.html#bim">BIM-FM</a></li>
+          <li><a href="piattaforma-en.html#cmms">CMMS</a></li>
+          <li><a href="piattaforma-en.html#iot">IoT &amp; predictive</a></li>
+          <li><a href="piattaforma-en.html#ems">EMS</a></li>
+          <li><a href="piattaforma-en.html#kpi">KPI dashboard</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5>Offer</h5>
+        <ul>
+          <li><a href="offerta-en.html">Architecture</a></li>
+          <li><a href="offerta-en.html#advisory">Advisory</a></li>
+          <li><a href="offerta-en.html#programma">Programme</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="index-en.html">Home</a></li>
+          <li><a href="contatti-en.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <div>© 2026 MoM S.r.l. — part of the AICOM engineering group · VAT 18451811006</div>
+      <div class="right">
+        <a href="#">Privacy</a>
+        <a href="#">Cookie</a>
+        <a href="#">Legal notes</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>lucide.createIcons();</script>
+<script src="site.js"></script>
+</body>
+</html>
