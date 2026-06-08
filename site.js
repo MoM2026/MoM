@@ -45,7 +45,10 @@
       '}',
       'html.reveal-on .reveal{opacity:0;transform:translateY(8px);transition:opacity var(--t-slow) var(--ease),transform var(--t-slow) var(--ease);will-change:opacity,transform;}',
       'html.reveal-on .reveal.is-visible{opacity:1;transform:none;}',
-      '@media (prefers-reduced-motion:reduce){html.reveal-on .reveal{opacity:1;transform:none;transition:none;}}'
+      '@media (prefers-reduced-motion:reduce){html.reveal-on .reveal{opacity:1;transform:none;transition:none;}}',
+      '.form-msg{margin-top:14px;font-family:var(--font-sans);font-size:14px;padding:12px 14px;border-radius:8px;line-height:1.5;}',
+      '.form-msg[data-state="ok"]{background:var(--mom-teal-soft);color:var(--mom-teal-deep);border:1px solid var(--mom-teal);}',
+      '.form-msg[data-state="err"]{background:rgba(196,84,58,0.10);color:#C4543A;border:1px solid rgba(196,84,58,0.4);}'
     ].join('\n');
     var style = document.createElement('style');
     style.id = 'mom-site-js-styles';
@@ -182,10 +185,72 @@
     reveal();
   }
 
+  /* ------------------------------------------------------------------
+     3 · Contact form — submit via fetch to Web3Forms, inline success/
+     error message, so the user stays on the page. If JS fails or fetch
+     is unavailable, the form still POSTs normally to the same endpoint.
+     ------------------------------------------------------------------ */
+  function initContactForm() {
+    var form = document.querySelector('form[data-contact-form]');
+    if (!form || !window.fetch) return;
+
+    var msg = form.querySelector('.form-msg');
+    var btn = form.querySelector('button[type="submit"]');
+    var btnHtml = btn ? btn.innerHTML : '';
+
+    function showMsg(text, state) {
+      if (!msg) return;
+      msg.textContent = text;
+      msg.setAttribute('data-state', state);
+      msg.hidden = false;
+    }
+    function clearMsg() {
+      if (!msg) return;
+      msg.hidden = true;
+      msg.removeAttribute('data-state');
+      msg.textContent = '';
+    }
+    function setSending(sending) {
+      if (!btn) return;
+      btn.disabled = sending;
+      btn.innerHTML = sending ? '…' : btnHtml;
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      clearMsg();
+      setSending(true);
+
+      var fd = new FormData(form);
+      fetch(form.action, { method: 'POST', body: fd })
+        .then(function (r) {
+          return r.json().catch(function () { return { success: r.ok }; });
+        })
+        .then(function (data) {
+          var ok = !!(data && data.success);
+          if (ok) {
+            showMsg(form.getAttribute('data-success-msg') || 'Sent.', 'ok');
+            form.reset();
+            if (msg && msg.scrollIntoView) {
+              msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          } else {
+            var apiMsg = (data && data.message) ? ' (' + data.message + ')' : '';
+            showMsg((form.getAttribute('data-error-msg') || 'Something went wrong.') + apiMsg, 'err');
+          }
+        })
+        .catch(function () {
+          showMsg(form.getAttribute('data-error-msg') || 'Network error.', 'err');
+        })
+        .then(function () { setSending(false); });
+    });
+  }
+
   function init() {
     injectStyles();
     initNav();
     initReveal();
+    initContactForm();
   }
 
   if (document.readyState === 'loading') {

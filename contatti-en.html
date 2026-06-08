@@ -326,7 +326,12 @@
     <div class="ct-grid">
 
       <!-- Form -->
-      <form class="form-card" action="mailto:info@aicom.it?subject=MoM%20%E2%80%94%20Contact%20request" method="post" enctype="text/plain" autocomplete="off">
+      <form class="form-card" action="https://api.web3forms.com/submit" method="post" autocomplete="off" data-contact-form data-success-msg="Request sent. We'll get back to you within 2 working days." data-error-msg="Sending failed. Please try again in a moment, or write to us at info@aicom.it.">
+        <input type="hidden" name="access_key" value="15169241-2f80-4e0e-8916-58603f724102">
+        <input type="hidden" name="subject" value="MoM — Contact request">
+        <input type="hidden" name="from_name" value="MoM · website (EN)">
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+
         <div class="form-card__head">
           <h2>Contact request</h2>
           <div class="meta">B2B · Response within 48h</div>
@@ -338,22 +343,22 @@
           <div class="radio-grid">
             <label class="radio">
               <div class="radio__h"><span class="dot"></span>Initial assessment</div>
-              <input type="radio" name="type" value="assessment" checked>
+              <input type="radio" name="type" value="Initial assessment" checked>
               <p>Facility Diagnostic Report — the first step of the MoM method, independent.</p>
             </label>
             <label class="radio">
               <div class="radio__h"><span class="dot"></span>Advisory packages</div>
-              <input type="radio" name="type" value="advisory">
+              <input type="radio" name="type" value="Advisory packages">
               <p>Recurring monthly governance on a perimeter already live or under review.</p>
             </label>
             <label class="radio">
               <div class="radio__h"><span class="dot"></span>Platform / verticals</div>
-              <input type="radio" name="type" value="platform">
+              <input type="radio" name="type" value="Platform / verticals">
               <p>Technical deep-dive on one or more verticals (CMMS, BIM-FM, IoT, EMS, KPI).</p>
             </label>
             <label class="radio">
               <div class="radio__h"><span class="dot"></span>Technical partnership</div>
-              <input type="radio" name="type" value="partnership">
+              <input type="radio" name="type" value="Technical partnership">
               <p>Product vendors, system integrators, engineering firms interested in working together.</p>
             </label>
           </div>
@@ -363,22 +368,22 @@
         <div class="field-row">
           <div class="field">
             <label>First name <span class="req">*</span></label>
-            <input type="text" placeholder="Mario">
+            <input type="text" name="first_name" placeholder="Mario" required>
           </div>
           <div class="field">
             <label>Last name <span class="req">*</span></label>
-            <input type="text" placeholder="Rossi">
+            <input type="text" name="last_name" placeholder="Rossi" required>
           </div>
         </div>
 
         <div class="field-row">
           <div class="field">
             <label>Work email <span class="req">*</span></label>
-            <input type="email" placeholder="m.rossi@company.com">
+            <input type="email" name="email" placeholder="m.rossi@company.com" required>
           </div>
           <div class="field">
             <label>Phone</label>
-            <input type="tel" placeholder="+39 011 0000000">
+            <input type="tel" name="phone" placeholder="+39 011 0000000">
           </div>
         </div>
 
@@ -386,19 +391,19 @@
         <div class="field-row">
           <div class="field">
             <label>Organisation <span class="req">*</span></label>
-            <input type="text" placeholder="e.g. Industrial Client">
+            <input type="text" name="organisation" placeholder="e.g. Industrial Client" required>
           </div>
           <div class="field">
             <label>Role</label>
-            <input type="text" placeholder="Technical management / Facility Manager">
+            <input type="text" name="role" placeholder="Technical management / Facility Manager">
           </div>
         </div>
 
         <div class="field-row">
           <div class="field">
             <label>Sector</label>
-            <select>
-              <option>Select…</option>
+            <select name="sector">
+              <option value="">Select…</option>
               <option>Manufacturing industry</option>
               <option>Real estate / Property portfolios</option>
               <option>Healthcare</option>
@@ -411,8 +416,8 @@
           </div>
           <div class="field">
             <label>Number of sites</label>
-            <select>
-              <option>Select…</option>
+            <select name="sites">
+              <option value="">Select…</option>
               <option>1 site</option>
               <option>2–5 sites</option>
               <option>6–15 sites</option>
@@ -425,25 +430,26 @@
         <div class="field">
           <label>Verticals of interest <span class="req" style="color: var(--fg-4); font-family: var(--font-sans); text-transform: none; letter-spacing: 0; font-size: 11px;">— optional</span></label>
           <div class="checks">
-            <label class="check"><span class="box"></span><input type="checkbox">01 · CDE</label>
-            <label class="check"><span class="box"></span><input type="checkbox">02 · BIM-FM</label>
-            <label class="check"><span class="box"></span><input type="checkbox">03 · CMMS</label>
-            <label class="check"><span class="box"></span><input type="checkbox">04 · IoT &amp; predictive</label>
-            <label class="check"><span class="box"></span><input type="checkbox">05 · EMS</label>
-            <label class="check"><span class="box"></span><input type="checkbox">06 · KPI dashboard</label>
+            <label class="check"><span class="box"></span><input type="checkbox" name="verticals" value="CDE">01 · CDE</label>
+            <label class="check"><span class="box"></span><input type="checkbox" name="verticals" value="BIM-FM">02 · BIM-FM</label>
+            <label class="check"><span class="box"></span><input type="checkbox" name="verticals" value="CMMS">03 · CMMS</label>
+            <label class="check"><span class="box"></span><input type="checkbox" name="verticals" value="IoT & predictive">04 · IoT &amp; predictive</label>
+            <label class="check"><span class="box"></span><input type="checkbox" name="verticals" value="EMS">05 · EMS</label>
+            <label class="check"><span class="box"></span><input type="checkbox" name="verticals" value="KPI dashboard">06 · KPI dashboard</label>
           </div>
         </div>
 
         <!-- Message -->
         <div class="field">
           <label>Context of your request</label>
-          <textarea placeholder="A line or two on the current situation, the perimeter you'd like to assess, and any timelines."></textarea>
+          <textarea name="message" placeholder="A line or two on the current situation, the perimeter you'd like to assess, and any timelines."></textarea>
         </div>
 
         <div class="form-card__submit">
           <p class="privacy">By submitting this form you accept the <a href="#">privacy policy</a>. No marketing automation, no newsletter.</p>
           <button type="submit" class="btn btn--teal">Send request <span class="arr">→</span></button>
         </div>
+        <div class="form-msg" hidden role="status" aria-live="polite"></div>
       </form>
 
       <!-- Aside -->
